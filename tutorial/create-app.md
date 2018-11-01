@@ -34,7 +34,7 @@ npm install react-router-dom@4.3.1 bootstrap@4.1.3 reactstrap@6.5.0 @fortawesome
 
 Start by creating a navbar for the app. Create a new file in the `./src` directory named `Navbar.js` and add the following code.
 
-```js
+```JSX
 import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import {
@@ -149,7 +149,7 @@ export default class NavBar extends React.Component {
 
 Next, create a home page for the app. Create a new file in the `./src` directory named `Welcome.js` and add the following code.
 
-```js
+```JSX
 import React from 'react';
 import {
   Button,
@@ -196,7 +196,7 @@ export default class Welcome extends React.Component {
 
 Now create an error message display to display messages to the user. Create a new file in the `./src` directory named `ErrorMessage.js` and add the following code.
 
-```js
+```JSX
 import React from 'react';
 import { Alert } from 'reactstrap';
 
