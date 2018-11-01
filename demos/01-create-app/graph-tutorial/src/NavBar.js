@@ -14,18 +14,29 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
-import './NavBar.css';
+
+function UserAvatar(props) {
+  // If a user avatar is available, return an img tag with the pic
+  if (props.user.avatar) {
+    return <img src={props.user.avatar} alt="user" class="rounded-circle align-self-center mr-2" style={{width: '32px;'}}></img>;
+  }
+
+  // No avatar available, return a default icon
+  return <i class="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px;'}}></i>;
+}
 
 function AuthNavItem(props) {
+  // If authenticated, return a dropdown with the user's info and a
+  // sign out button
   if (props.isAuthenticated) {
     return (
       <UncontrolledDropdown>
         <DropdownToggle nav caret>
-          <i class="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px;'}}></i>
+          <UserAvatar user={props.user}/>
         </DropdownToggle>
         <DropdownMenu right>
-          <h5 class="dropdown-item-text mb-0">Bob Jones</h5>
-          <p class="dropdown-item-text text-muted mb-0">bob@jones.com</p>
+          <h5 class="dropdown-item-text mb-0">{props.user.displayName}</h5>
+          <p class="dropdown-item-text text-muted mb-0">{props.user.email}</p>
           <DropdownItem divider />
           <DropdownItem onClick={props.authButtonMethod}>Sign Out</DropdownItem>
         </DropdownMenu>
@@ -34,6 +45,7 @@ function AuthNavItem(props) {
     );
   }
 
+  // Not authenticated, return a sign in link
   return (
     <NavItem>
       <NavLink onClick={props.authButtonMethod}>Sign In</NavLink>
@@ -71,10 +83,10 @@ export default class NavBar extends React.Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="mr-auto" navbar>
                 <NavItem>
-                  <RouterNavLink to="/" className="nav-link" activeClassName="active">Home</RouterNavLink>
+                  <RouterNavLink to="/" className="nav-link" exact>Home</RouterNavLink>
                 </NavItem>
                 <NavItem>
-                  <RouterNavLink to="/calendar" className="nav-link" activeClassName="active">Calendar</RouterNavLink>
+                  <RouterNavLink to="/calendar" className="nav-link" exact>Calendar</RouterNavLink>
                 </NavItem>
               </Nav>
               <Nav className="justify-content-end" navbar>
@@ -84,7 +96,10 @@ export default class NavBar extends React.Component {
                     Docs
                   </NavLink>
                 </NavItem>
-                <AuthNavItem isAuthenticated={this.isAuthenticated} authButtonMethod={this.authButtonMethod}/>
+                <AuthNavItem
+                  isAuthenticated={this.isAuthenticated}
+                  authButtonMethod={this.authButtonMethod}
+                  user={this.user} />
               </Nav>
             </Collapse>
           </Container>
