@@ -12,11 +12,11 @@ export default class ErrorMessage extends React.Component {
   render() {
     let debug = null;
     if (this.debug) {
-      debug = <pre class="alert-pre border bg-light p-2"><code>{this.debug}</code></pre>;
+      debug = <pre className="alert-pre border bg-light p-2"><code>{this.debug}</code></pre>;
     }
     return (
       <Alert color="danger">
-        <p class="mb-3">{this.message}</p>
+        <p className="mb-3">{this.message}</p>
         {debug}
       </Alert>
     );

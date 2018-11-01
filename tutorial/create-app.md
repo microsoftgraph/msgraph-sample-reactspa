@@ -55,11 +55,11 @@ import '@fortawesome/fontawesome-free/css/all.css';
 function UserAvatar(props) {
   // If a user avatar is available, return an img tag with the pic
   if (props.user.avatar) {
-    return <img src={props.user.avatar} alt="user" class="rounded-circle align-self-center mr-2" style={{width: '32px;'}}></img>;
+    return <img src={props.user.avatar} alt="user" className="rounded-circle align-self-center mr-2" style={{width: '32px;'}}></img>;
   }
 
   // No avatar available, return a default icon
-  return <i class="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px;'}}></i>;
+  return <i className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px;'}}></i>;
 }
 
 function AuthNavItem(props) {
@@ -72,8 +72,8 @@ function AuthNavItem(props) {
           <UserAvatar user={props.user}/>
         </DropdownToggle>
         <DropdownMenu right>
-          <h5 class="dropdown-item-text mb-0">{props.user.displayName}</h5>
-          <p class="dropdown-item-text text-muted mb-0">{props.user.email}</p>
+          <h5 className="dropdown-item-text mb-0">{props.user.displayName}</h5>
+          <p className="dropdown-item-text text-muted mb-0">{props.user.email}</p>
           <DropdownItem divider />
           <DropdownItem onClick={props.authButtonMethod}>Sign Out</DropdownItem>
         </DropdownMenu>
@@ -129,7 +129,7 @@ export default class NavBar extends React.Component {
               <Nav className="justify-content-end" navbar>
                 <NavItem>
                   <NavLink href="https://developer.microsoft.com/graph/docs/concepts/overview" target="_blank">
-                    <i class="fas fa-external-link-alt mr-1"></i>
+                    <i className="fas fa-external-link-alt mr-1"></i>
                     Docs
                   </NavLink>
                 </NavItem>
@@ -211,11 +211,11 @@ export default class ErrorMessage extends React.Component {
   render() {
     let debug = null;
     if (this.debug) {
-      debug = <pre class="alert-pre border bg-light p-2"><code>{this.debug}</code></pre>;
+      debug = <pre className="alert-pre border bg-light p-2"><code>{this.debug}</code></pre>;
     }
     return (
       <Alert color="danger">
-        <p class="mb-3">{this.message}</p>
+        <p className="mb-3">{this.message}</p>
         {debug}
       </Alert>
     );
