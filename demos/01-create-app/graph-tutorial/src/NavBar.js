@@ -18,11 +18,11 @@ import '@fortawesome/fontawesome-free/css/all.css';
 function UserAvatar(props) {
   // If a user avatar is available, return an img tag with the pic
   if (props.user.avatar) {
-    return <img src={props.user.avatar} alt="user" className="rounded-circle align-self-center mr-2" style={{width: '32px;'}}></img>;
+    return <img src={props.user.avatar} alt="user" className="rounded-circle align-self-center mr-2" style={{width: '32px'}}></img>;
   }
 
   // No avatar available, return a default icon
-  return <i className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px;'}}></i>;
+  return <i className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px'}}></i>;
 }
 
 function AuthNavItem(props) {
@@ -61,10 +61,6 @@ export default class NavBar extends React.Component {
     this.state = {
       isOpen: false
     };
-
-    this.isAuthenticated = props.isAuthenticated;
-    this.authButtonMethod = props.authButtonMethod;
-    this.user = props.user;
   }
 
   toggle() {
@@ -97,9 +93,9 @@ export default class NavBar extends React.Component {
                   </NavLink>
                 </NavItem>
                 <AuthNavItem
-                  isAuthenticated={this.isAuthenticated}
-                  authButtonMethod={this.authButtonMethod}
-                  user={this.user} />
+                  isAuthenticated={this.props.isAuthenticated}
+                  authButtonMethod={this.props.authButtonMethod}
+                  user={this.props.user} />
               </Nav>
             </Collapse>
           </Container>

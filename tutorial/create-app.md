@@ -55,11 +55,11 @@ import '@fortawesome/fontawesome-free/css/all.css';
 function UserAvatar(props) {
   // If a user avatar is available, return an img tag with the pic
   if (props.user.avatar) {
-    return <img src={props.user.avatar} alt="user" className="rounded-circle align-self-center mr-2" style={{width: '32px;'}}></img>;
+    return <img src={props.user.avatar} alt="user" className="rounded-circle align-self-center mr-2" style={{width: '32px'}}></img>;
   }
 
   // No avatar available, return a default icon
-  return <i className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px;'}}></i>;
+  return <i className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px'}}></i>;
 }
 
 function AuthNavItem(props) {
@@ -98,10 +98,6 @@ export default class NavBar extends React.Component {
     this.state = {
       isOpen: false
     };
-
-    this.isAuthenticated = props.isAuthenticated;
-    this.authButtonMethod = props.authButtonMethod;
-    this.user = props.user;
   }
 
   toggle() {
@@ -134,9 +130,9 @@ export default class NavBar extends React.Component {
                   </NavLink>
                 </NavItem>
                 <AuthNavItem
-                  isAuthenticated={this.isAuthenticated}
-                  authButtonMethod={this.authButtonMethod}
-                  user={this.user} />
+                  isAuthenticated={this.props.isAuthenticated}
+                  authButtonMethod={this.props.authButtonMethod}
+                  user={this.props.user} />
               </Nav>
             </Collapse>
           </Container>
@@ -171,23 +167,15 @@ function WelcomeContent(props) {
 }
 
 export default class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.isAuthenticated = props.isAuthenticated;
-    this.authButtonMethod = props.authButtonMethod;
-    this.user = props.user;
-  }
-
   render() {
     return (
       <Jumbotron>
         <h1>React Graph Tutorial</h1>
         <p className="lead">This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React</p>
         <WelcomeContent
-          isAuthenticated={this.isAuthenticated}
-          user={this.user}
-          authButtonMethod={this.authButtonMethod} />
+          isAuthenticated={this.props.isAuthenticated}
+          user={this.props.user}
+          authButtonMethod={this.props.authButtonMethod} />
       </Jumbotron>
     );
   }
@@ -201,21 +189,14 @@ import React from 'react';
 import { Alert } from 'reactstrap';
 
 export default class ErrorMessage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.message = props.message;
-    this.debug = props.debug;
-  }
-
   render() {
     let debug = null;
-    if (this.debug) {
-      debug = <pre className="alert-pre border bg-light p-2"><code>{this.debug}</code></pre>;
+    if (this.props.debug) {
+      debug = <pre className="alert-pre border bg-light p-2"><code>{this.props.debug}</code></pre>;
     }
     return (
       <Alert color="danger">
-        <p className="mb-3">{this.message}</p>
+        <p className="mb-3">{this.props.message}</p>
         {debug}
       </Alert>
     );
