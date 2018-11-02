@@ -235,7 +235,7 @@ class App extends Component {
 
     this.state = {
       isAuthenticated: false,
-      user: null,
+      user: {},
       error: null
     };
   }

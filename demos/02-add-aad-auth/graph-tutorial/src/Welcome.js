@@ -19,13 +19,6 @@ function WelcomeContent(props) {
 }
 
 export default class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.isAuthenticated = props.isAuthenticated;
-    this.authButtonMethod = props.authButtonMethod;
-    this.user = props.user;
-  }
 
   render() {
     return (
@@ -33,9 +26,9 @@ export default class Welcome extends React.Component {
         <h1>React Graph Tutorial</h1>
         <p className="lead">This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React</p>
         <WelcomeContent
-          isAuthenticated={this.isAuthenticated}
-          user={this.user}
-          authButtonMethod={this.authButtonMethod} />
+          isAuthenticated={this.props.isAuthenticated}
+          user={this.props.user}
+          authButtonMethod={this.props.authButtonMethod} />
       </Jumbotron>
     );
   }
