@@ -57,6 +57,12 @@ class App extends Component {
     );
   }
 
+  setErrorMessage(message, debug) {
+    this.setState({
+      error: {message: message, debug: debug}
+    });
+  }
+
   async login() {
     try {
       await this.userAgentApplication.loginPopup(config.scopes);

@@ -44,6 +44,12 @@ class App extends Component {
       </Router>
     );
   }
+
+  setErrorMessage(message, debug) {
+    this.setState({
+      error: {message: message, debug: debug}
+    });
+  }
 }
 
 export default App;
