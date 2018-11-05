@@ -21,13 +21,14 @@ Before moving on, install some additional packages that you will use later:
 - [bootstrap](https://github.com/twbs/bootstrap) for styling and common components.
 - [reactstrap](https://github.com/reactstrap/reactstrap) for React components based on Bootstrap.
 - [fontawesome-free](https://github.com/FortAwesome/Font-Awesome) for icons.
+- [moment](https://github.com/moment/moment) for formatting dates and times.
 - [msal](https://github.com/AzureAD/microsoft-authentication-library-for-js) for authenticating to Azure Active Directory and retrieving access tokens.
 - [microsoft-graph-client](https://github.com/microsoftgraph/msgraph-sdk-javascript) for making calls to Microsoft Graph.
 
 Run the following command in your CLI.
 
 ```Shell
-npm install react-router-dom@4.3.1 bootstrap@4.1.3 reactstrap@6.5.0 @fortawesome/fontawesome-free@5.4.2 msal@0.2.3 @microsoft/microsoft-graph-client@1.3.0
+npm install react-router-dom@4.3.1 bootstrap@4.1.3 reactstrap@6.5.0 @fortawesome/fontawesome-free@5.4.2 moment@2.22.2 msal@0.2.3 @microsoft/microsoft-graph-client@1.3.0
 ```
 
 ## Design the app

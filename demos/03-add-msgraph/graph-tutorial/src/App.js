@@ -5,6 +5,7 @@ import { UserAgentApplication } from 'msal';
 import NavBar from './NavBar';
 import ErrorMessage from './ErrorMessage';
 import Welcome from './Welcome';
+import Calendar from './Calendar';
 import config from './Config';
 import { getUserDetails } from './GraphService';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -51,10 +52,21 @@ class App extends Component {
                   user={this.state.user}
                   authButtonMethod={this.login.bind(this)} />
               } />
+            <Route exact path="/calendar"
+              render={(props) =>
+                <Calendar {...props}
+                  showError={this.setErrorMessage.bind(this)} />
+              } />
           </Container>
         </div>
       </Router>
     );
+  }
+
+  setErrorMessage(message, debug) {
+    this.setState({
+      error: {message: message, debug: debug}
+    });
   }
 
   async login() {
