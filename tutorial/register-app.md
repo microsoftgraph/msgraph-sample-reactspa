@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-In this demo, you will create a new Azure AD web application registration using the Application Registry Portal (ARP).
+In this exercise, you will create a new Azure AD web application registration using the Application Registry Portal (ARP).
 
 1. Open a browser and navigate to the [Application Registration Portal](https://apps.dev.microsoft.com). Login using a **personal account** (aka: Microsoft Account) or **Work or School Account**.
 

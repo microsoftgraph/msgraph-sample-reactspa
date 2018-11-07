@@ -40,7 +40,7 @@ function formatDateTime(dateTime) {
   return moment.utc(dateTime).local().format('M/D/YY h:mm A');
 }
 
-export default class Welcome extends React.Component {
+export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
 
