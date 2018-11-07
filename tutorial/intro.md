@@ -6,4 +6,5 @@ This tutorial teaches you how to build a React single-page app that uses the Mic
 
 Before you start this tutorial, you should have [Node.js](https://nodejs.org) installed on your development machine. If you do not have Node.js, visit the previous link for download options.
 
-> **Note:** This tutorial was written with Node version 10.7.0. The steps in this guide may work with other versions, but that has not been tested.
+> [!NOTE]
+> This tutorial was written with Node version 10.7.0. The steps in this guide may work with other versions, but that has not been tested.
