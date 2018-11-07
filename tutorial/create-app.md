@@ -28,7 +28,8 @@ Before moving on, install some additional packages that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-npm install react-router-dom@4.3.1 bootstrap@4.1.3 reactstrap@6.5.0 @fortawesome/fontawesome-free@5.4.2 moment@2.22.2 msal@0.2.3 @microsoft/microsoft-graph-client@1.3.0
+npm install react-router-dom@4.3.1 bootstrap@4.1.3 reactstrap@6.5.0 @fortawesome/fontawesome-free@5.4.2
+npm moment@2.22.2 msal@0.2.3 @microsoft/microsoft-graph-client@1.3.0
 ```
 
 ## Design the app
@@ -84,7 +85,6 @@ function AuthNavItem(props) {
           <DropdownItem onClick={props.authButtonMethod}>Sign Out</DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
-
     );
   }
 
@@ -185,7 +185,9 @@ export default class Welcome extends React.Component {
     return (
       <Jumbotron>
         <h1>React Graph Tutorial</h1>
-        <p className="lead">This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React</p>
+        <p className="lead">
+            This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React
+        </p>
         <WelcomeContent
           isAuthenticated={this.props.isAuthenticated}
           user={this.props.user}
