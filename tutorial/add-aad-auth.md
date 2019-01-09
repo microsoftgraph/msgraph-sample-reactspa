@@ -82,6 +82,24 @@ logout() {
 }
 ```
 
+Now that the `login` and `logout` methods are implemented, update the `NavBar` and `Welcome` elements in the `render` method of the `App` class. Replace the existing `NavBar` element with the following.
+
+```JSX
+<NavBar
+  isAuthenticated={this.state.isAuthenticated}
+  authButtonMethod={this.state.isAuthenticated ? this.logout.bind(this) : this.login.bind(this)}
+  user={this.state.user}/>
+```
+
+Replace the existing `Welcome` element with the following.
+
+```JSX
+<Welcome {...props}
+  isAuthenticated={this.state.isAuthenticated}
+  user={this.state.user}
+  authButtonMethod={this.login.bind(this)} />
+```
+
 Finally, implement the `getUserProfile` function. Add the following function to the `App` class.
 
 ```js
