@@ -1,31 +1,25 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-In this exercise, you will create a new Azure AD web application registration using the Application Registry Portal (ARP).
+In this exercise, you will create a new Azure AD web application registration using the Azure Active Directory admin center.
 
-1. Open a browser and navigate to the [Application Registration Portal](https://apps.dev.microsoft.com). Login using a **personal account** (aka: Microsoft Account) or **Work or School Account**.
+1. Open a browser and navigate to the [Azure Active Directory admin center](https://aad.portal.azure.com). Login using a **personal account** (aka: Microsoft Account) or **Work or School Account**.
 
-1. Select **Add an app** at the top of the page.
+1. Select **Azure Active Directory** in the left-hand navigation, then select **App registrations (Preview)** under **Manage**.
 
-    > [!NOTE]
-    > If you see more than one **Add an app** button on the page, select the one that corresponds to the **Converged apps** list.
+    ![A screenshot of the App registrations ](./images/aad-portal-app-registrations.png)
 
-1. On the **Register your application** page, set the **Application Name** to **React Graph Tutorial** and select **Create**.
+1. Select **New registration**. On the **Register an application** page, set the values as follows.
 
-    ![Screenshot of creating a new app in the App Registration Portal website](./images/arp-create-app-01.png)
+    - Set **Name** to `React Graph Tutorial`.
+    - Set **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts**.
+    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `http://localhost:3000`.
 
-1. On the **React Graph Tutorial Registration** page, under the **Properties** section, copy the **Application Id** as you will need it later.
+    ![A screenshot of the Register an application page](./images/aad-register-an-app.png)
 
-    ![Screenshot of newly created application's ID](./images/arp-create-app-02.png)
+1. Choose **Register**. On the **Angular Graph Tutorial** page, copy the value of the **Application (client) ID** and save it, you will need it in the next step.
 
-1. Scroll down to the **Platforms** section.
+    ![A screenshot of the application ID of the new app registration](./images/aad-application-id.png)
 
-    1. Select **Add Platform**.
-    1. In the **Add Platform** dialog, select **Web**.
+1. Select **Authentication** under **Manage**. Locate the **Implicit grant** section and enable **Access tokens** and **ID tokens**. Choose **Save**.
 
-        ![Screenshot creating a platform for the app](./images/arp-create-app-03.png)
-
-    1. In the **Web** platform box, enter `http://localhost:3000` for the **Redirect URLs**.
-
-        ![Screenshot of the newly added Web platform for the application](./images/arp-create-app-04.png)
-
-1. Scroll to the bottom of the page and select **Save**.
+    ![A screenshot of the Implicit grant section](./images/aad-implicit-grant.png)
