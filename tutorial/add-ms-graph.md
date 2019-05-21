@@ -109,9 +109,9 @@ render() {
         </thead>
         <tbody>
           {this.state.events.map(
-            function(event, index){
+            function(event){
               return(
-                <tr>
+                <tr key={event.id}>
                   <td>{event.organizer.emailAddress.name}</td>
                   <td>{event.subject}</td>
                   <td>{formatDateTime(event.start.dateTime)}</td>
