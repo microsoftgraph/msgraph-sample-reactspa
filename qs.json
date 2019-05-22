@@ -1,0 +1,7 @@
+{
+  "sourceDirectory": ".\\demos\\03-add-msgraph",
+  "exampleConfigFile": ".\\graph-tutorial\\src\\Config.js.example",
+  "configFile": "Config.js",
+  "archiveFile": "ReactQuickStart.zip",
+  "zipReadMe": ".\\README.md"
+}

@@ -4,7 +4,7 @@
 
 To run the completed project in this folder, you need the following:
 
-- [Visual Studio](https://visualstudio.microsoft.com/vs/) installed on your development machine. If you do not have Visual Studio, visit the previous link for download options. (**Note:** This tutorial was written with Visual Studio 2017 version 15.81. The steps in this guide may work with other versions, but that has not been tested.)
+- [Node.js](https://nodejs.org) installed on your development machine. If you do not have Node.js, visit the previous link for download options. (**Note:** This tutorial was written with Node version 10.15.3. The steps in this guide may work with other versions, but that has not been tested.)
 - Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account.
 
 If you don't have a Microsoft account, there are a couple of options to get a free account:
