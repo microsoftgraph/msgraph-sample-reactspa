@@ -6,7 +6,7 @@ function getAuthenticatedClient(accessToken) {
     // Use the provided access token to authenticate
     // requests
     authProvider: (done) => {
-      done(null, accessToken);
+      done(null, accessToken.accessToken);
     }
   });
 
