@@ -34,9 +34,17 @@ Start by updating the `constructor` for the `App` class to create an instance of
 constructor(props) {
   super(props);
 
-  this.userAgentApplication = new UserAgentApplication(config.appId, null, null);
+  this.userAgentApplication = new UserAgentApplication({
+        auth: {
+            clientId: config.appId
+        },
+        cache: {
+            cacheLocation: "localStorage",
+            storeAuthStateInCookie: true
+        }
+    });
 
-  var user = this.userAgentApplication.getUser();
+  var user = this.userAgentApplication.getAccount();
 
   this.state = {
     isAuthenticated: (user !== null),
@@ -58,7 +66,11 @@ Next, add a function to the `App` class to do the login. Add the following funct
 ```js
 async login() {
   try {
-    await this.userAgentApplication.loginPopup(config.scopes);
+    await this.userAgentApplication.loginPopup(
+        {
+          scopes: config.scopes,
+          prompt: "select_account"
+      });
     await this.getUserProfile();
   }
   catch(err) {
@@ -110,13 +122,15 @@ async getUserProfile() {
     // will just return the cached token. Otherwise, it will
     // make a request to the Azure OAuth endpoint to get a token
 
-    var accessToken = await this.userAgentApplication.acquireTokenSilent(config.scopes);
+    var accessToken = await this.userAgentApplication.acquireTokenSilent({
+        scopes: config.scopes
+      });
 
     if (accessToken) {
       // TEMPORARY: Display the token in the error flash
       this.setState({
         isAuthenticated: true,
-        error: { message: "Access token:", debug: accessToken }
+        error: { message: "Access token:", debug: accessToken.accessToken }
       });
     }
   }
@@ -148,7 +162,7 @@ function getAuthenticatedClient(accessToken) {
     // Use the provided access token to authenticate
     // requests
     authProvider: (done) => {
-      done(null, accessToken);
+      done(null, accessToken.accessToken);
     }
   });
 
@@ -181,7 +195,9 @@ async getUserProfile() {
     // will just return the cached token. Otherwise, it will
     // make a request to the Azure OAuth endpoint to get a token
 
-    var accessToken = await this.userAgentApplication.acquireTokenSilent(config.scopes);
+    var accessToken = await this.userAgentApplication.acquireTokenSilent({
+      scopes: config.scopes
+    });
 
     if (accessToken) {
       // Get the user's profile from Graph

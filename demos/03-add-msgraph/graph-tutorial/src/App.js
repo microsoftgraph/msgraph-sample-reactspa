@@ -5,18 +5,26 @@ import { UserAgentApplication } from 'msal';
 import NavBar from './NavBar';
 import ErrorMessage from './ErrorMessage';
 import Welcome from './Welcome';
-import Calendar from './Calendar';
 import config from './Config';
 import { getUserDetails } from './GraphService';
 import 'bootstrap/dist/css/bootstrap.css';
+import Calendar from './Calendar';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.userAgentApplication = new UserAgentApplication(config.appId, null, null);
+    this.userAgentApplication = new UserAgentApplication({
+        auth: {
+            clientId: config.appId
+        },
+        cache: {
+            cacheLocation: "localStorage",
+            storeAuthStateInCookie: true
+        }
+    });
 
-    var user = this.userAgentApplication.getUser();
+    var user = this.userAgentApplication.getAccount();
 
     this.state = {
       isAuthenticated: (user !== null),
@@ -71,7 +79,11 @@ class App extends Component {
 
   async login() {
     try {
-      await this.userAgentApplication.loginPopup(config.scopes);
+      await this.userAgentApplication.loginPopup(
+        {
+          scopes: config.scopes,
+          prompt: "select_account"
+      });
       await this.getUserProfile();
     }
     catch(err) {
@@ -95,7 +107,9 @@ class App extends Component {
       // will just return the cached token. Otherwise, it will
       // make a request to the Azure OAuth endpoint to get a token
 
-      var accessToken = await this.userAgentApplication.acquireTokenSilent(config.scopes);
+      var accessToken = await this.userAgentApplication.acquireTokenSilent({
+        scopes: config.scopes
+      });
 
       if (accessToken) {
         // Get the user's profile from Graph

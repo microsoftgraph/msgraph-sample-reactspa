@@ -20,7 +20,9 @@ export default class Calendar extends React.Component {
   async componentDidMount() {
     try {
       // Get the user's access token
-      var accessToken = await window.msal.acquireTokenSilent(config.scopes);
+      var accessToken = await window.msal.acquireTokenSilent({
+        scopes: config.scopes
+      });
       // Get the user's events
       var events = await getEvents(accessToken);
       // Update the array of events in state
