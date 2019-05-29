@@ -36,8 +36,7 @@ constructor(props) {
 
   this.userAgentApplication = new UserAgentApplication({
         auth: {
-            clientId: config.appId,
-            redirectUri: "http://localhost:3000",
+            clientId: config.appId
         },
         cache: {
             cacheLocation: "localStorage",
@@ -45,7 +44,7 @@ constructor(props) {
         }
     });
 
-  var user = this.userAgentApplication.getUser();
+  var user = this.userAgentApplication.getAccount();
 
   this.state = {
     isAuthenticated: (user !== null),
@@ -70,7 +69,7 @@ async login() {
     await this.userAgentApplication.loginPopup(
         {
           scopes: config.scopes,
-          prompt: "select_account",
+          prompt: "select_account"
       });
     await this.getUserProfile();
   }
@@ -131,7 +130,7 @@ async getUserProfile() {
       // TEMPORARY: Display the token in the error flash
       this.setState({
         isAuthenticated: true,
-        error: { message: "Access token:", debug: accessToken }
+        error: { message: "Access token:", debug: accessToken.accessToken }
       });
     }
   }

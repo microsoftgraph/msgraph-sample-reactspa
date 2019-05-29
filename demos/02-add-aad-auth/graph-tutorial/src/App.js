@@ -15,8 +15,7 @@ class App extends Component {
 
     this.userAgentApplication = new UserAgentApplication({
         auth: {
-            clientId: config.appId,
-            redirectUri: "http://localhost:3000",
+            clientId: config.appId
         },
         cache: {
             cacheLocation: "localStorage",
@@ -77,7 +76,7 @@ class App extends Component {
       await this.userAgentApplication.loginPopup(
         {
           scopes: config.scopes,
-          prompt: "select_account",
+          prompt: "select_account"
       });
       await this.getUserProfile();
     }
