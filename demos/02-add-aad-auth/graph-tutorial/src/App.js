@@ -81,11 +81,24 @@ class App extends Component {
       await this.getUserProfile();
     }
     catch(err) {
-      var errParts = err.split('|');
+      var error = {};
+
+      if (typeof(err) === 'string') {
+        var errParts = err.split('|');
+        error = errParts.length > 1 ?
+          { message: errParts[1], debug: errParts[0] } :
+          { message: err };
+      } else {
+        error = {
+          message: err.message,
+          debug: JSON.stringify(err)
+        };
+      }
+
       this.setState({
         isAuthenticated: false,
         user: {},
-        error: { message: errParts[1], debug: errParts[0] }
+        error: error
       });
     }
   }
