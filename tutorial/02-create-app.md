@@ -34,7 +34,7 @@ npm install moment@2.24.0 msal@1.1.3 @microsoft/microsoft-graph-client@1.7.0
 
 ## Design the app
 
-Start by creating a navbar for the app. Create a new file in the `./src` directory named `Navbar.js` and add the following code.
+Start by creating a navbar for the app. Create a new file in the `./src` directory named `NavBar.js` and add the following code.
 
 ```JSX
 import React from 'react';
