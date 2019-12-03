@@ -20,6 +20,8 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
     ![A screenshot of the App registrations ](/tutorial/images/aad-portal-app-registrations.png)
 
+    > **Note:** Azure AD B2C users may only see **App registrations (legacy)**. In this case, please go directly to [https://aka.ms/appregistrations](https://aka.ms/appregistrations).
+
 1. Select **New registration**. On the **Register an application** page, set the values as follows.
 
     - Set **Name** to `React Graph Tutorial`.
