@@ -19,7 +19,6 @@ function WelcomeContent(props) {
 }
 
 export default class Welcome extends React.Component {
-
   render() {
     return (
       <Jumbotron>

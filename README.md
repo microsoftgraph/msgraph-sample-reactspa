@@ -39,6 +39,7 @@ This module has been recorded and is available in the Office Development YouTube
 
 | Version |       Date       |              Comments              |
 | ------- | ---------------- | ---------------------------------- |
+| 1.7     | December 3, 2019 | Update to latest Graph SDK and `create-react-app` |
 | 1.6     | June 18, 2019    | Added link to screencast recording |
 | 1.5     | May 24, 2019     | 2019Q4 content refresh             |
 | 1.4     | May 22, 2019     | Quickstart updates                 |

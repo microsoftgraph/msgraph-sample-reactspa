@@ -8,6 +8,9 @@ In this exercise, you will create a new Azure AD web application registration us
 
     ![A screenshot of the App registrations ](./images/aad-portal-app-registrations.png)
 
+    > [!NOTE]
+    > Azure AD B2C users may only see **App registrations (legacy)**. In this case, please go directly to [https://aka.ms/appregistrations](https://aka.ms/appregistrations).
+
 1. Select **New registration**. On the **Register an application** page, set the values as follows.
 
     - Set **Name** to `React Graph Tutorial`.
