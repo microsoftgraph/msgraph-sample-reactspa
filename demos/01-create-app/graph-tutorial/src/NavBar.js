@@ -25,7 +25,9 @@ function UserAvatar(props) {
   }
 
   // No avatar available, return a default icon
-  return <i className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2" style={{width: '32px'}}></i>;
+  return <i
+          className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2"
+          style={{width: '32px'}}></i>;
 }
 
 function AuthNavItem(props) {
