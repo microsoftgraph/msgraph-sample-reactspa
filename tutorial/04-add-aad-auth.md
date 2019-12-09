@@ -7,9 +7,10 @@ Create a new file in the `./src` directory named `Config.js` and add the followi
 ```js
 module.exports = {
   appId: 'YOUR_APP_ID_HERE',
+  redirectUri: 'https://localhost:3000',
   scopes: [
-    "user.read",
-    "calendars.read"
+    'user.read',
+    'calendars.read'
   ]
 };
 ```
@@ -36,7 +37,8 @@ constructor(props) {
 
   this.userAgentApplication = new UserAgentApplication({
         auth: {
-            clientId: config.appId
+            clientId: config.appId,
+            redirectUri: config.redirectUri
         },
         cache: {
             cacheLocation: "localStorage",

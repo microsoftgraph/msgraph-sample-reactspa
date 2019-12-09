@@ -14,9 +14,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    console.log(JSON.stringify(props));
+
     this.userAgentApplication = new UserAgentApplication({
         auth: {
-            clientId: config.appId
+            clientId: config.appId,
+            redirectUri: config.redirectUri
         },
         cache: {
             cacheLocation: "localStorage",
