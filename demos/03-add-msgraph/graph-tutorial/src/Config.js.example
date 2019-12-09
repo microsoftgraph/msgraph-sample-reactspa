@@ -1,7 +1,8 @@
 module.exports = {
   appId: 'YOUR_APP_ID_HERE',
+  redirectUri: 'https://localhost:3000',
   scopes: [
-    "user.read",
-    "calendars.read"
+    'user.read',
+    'calendars.read'
   ]
 };
