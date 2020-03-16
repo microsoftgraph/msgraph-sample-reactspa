@@ -1,19 +1,22 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-Open your command-line interface (CLI), navigate to a directory where you have rights to create files, and run the following commands to install the [create-react-app](https://www.npmjs.com/package/create-react-app) tool and create a new React app.
+In this section you'll create a new React app.
 
-```Shell
-npm install create-react-app@3.1.1 -g
-create-react-app graph-tutorial
-```
+1. Open your command-line interface (CLI), navigate to a directory where you have rights to create files, and run the following commands to create a new React app.
 
-Once the command finishes, change to the `graph-tutorial` directory in your CLI and run the following command to start a local web server.
+    ```Shell
+    npx create-react-app@3.4.0 graph-tutorial --template typescript
+    ```
 
-```Shell
-npm start
-```
+1. Once the command finishes, change to the `graph-tutorial` directory in your CLI and run the following command to start a local web server.
+
+    ```Shell
+    npm start
+    ```
 
 Your default browser opens to [https://localhost:3000/](https://localhost:3000) with a default React page. If your browser doesn't open, open it and browse to [https://localhost:3000/](https://localhost:3000) to verify that the new app works.
+
+## Add Node packages
 
 Before moving on, install some additional packages that you will use later:
 
