@@ -64,4 +64,5 @@ typings/
 .vscode/
 
 Config.js
+Config.ts
 ReactQuickStart.zip
