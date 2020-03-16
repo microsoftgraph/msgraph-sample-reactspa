@@ -7,6 +7,7 @@ import { UserAgentApplication } from 'msal';
 import NavBar from './NavBar';
 import ErrorMessage from './ErrorMessage';
 import Welcome from './Welcome';
+import Calendar from './Calendar';
 import { config } from './Config';
 import { getUserDetails } from './GraphService';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -30,7 +31,7 @@ class App extends Component<any, AppState> {
           redirectUri: config.redirectUri
       },
       cache: {
-          cacheLocation: "localStorage",
+          cacheLocation: "sessionStorage",
           storeAuthStateInCookie: true
       }
     });
@@ -72,6 +73,11 @@ class App extends Component<any, AppState> {
                   isAuthenticated={this.state.isAuthenticated}
                   user={this.state.user}
                   authButtonMethod={this.login.bind(this)} />
+              } />
+            <Route exact path="/calendar"
+              render={(props) =>
+                <Calendar {...props}
+                  showError={this.setErrorMessage.bind(this)} />
               } />
           </Container>
         </div>
@@ -126,6 +132,7 @@ class App extends Component<any, AppState> {
   }
   // </logoutSnippet>
 
+  // <getUserProfileSnippet>
   async getUserProfile() {
     try {
       // Get the access token silently
@@ -171,6 +178,7 @@ class App extends Component<any, AppState> {
       });
     }
   }
+  // </getUserProfileSnippet>
 }
 
 export default App;
