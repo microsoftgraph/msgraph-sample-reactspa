@@ -57,7 +57,7 @@ Start by creating a navbar for the app.
 
 1. Open `./src/App.tsx` and replace its entire contents with the following.
 
-    ```TSX
+    ```typescript
     import React, { Component } from 'react';
     import { BrowserRouter as Router, Route } from 'react-router-dom';
     import { Container } from 'reactstrap';
@@ -115,6 +115,6 @@ Start by creating a navbar for the app.
     export default App;
     ```
 
-Save all of your changes and refresh the page. Now, the app should look very different.
+1. Save all of your changes and refresh the page. Now, the app should look very different.
 
-![A screenshot of the redesigned home page](images/create-app-01.png)
+    ![A screenshot of the redesigned home page](images/create-app-01.png)

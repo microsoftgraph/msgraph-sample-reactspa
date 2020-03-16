@@ -13,10 +13,10 @@ In this exercise you will extend the application from the previous exercise to s
 
 1. Open `./src/App.tsx` and add the following `import` statements to the top of the file.
 
-```js
-import { config } from './Config';
-import { UserAgentApplication } from 'msal';
-```
+    ```typescript
+    import { config } from './Config';
+    import { UserAgentApplication } from 'msal';
+    ```
 
 ## Implement sign-in
 
@@ -117,13 +117,13 @@ In this section you will get the user's details from Microsoft Graph.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/App.tsx" id="getUserProfileSnippet" highlight="13-22":::
 
-Now if you save your changes and start the app, after sign-in you should end up back on the home page, but the UI should change to indicate that you are signed-in.
+1. Save your changes and start the app, after sign-in you should end up back on the home page, but the UI should change to indicate that you are signed-in.
 
-![A screenshot of the home page after signing in](./images/add-aad-auth-01.png)
+    ![A screenshot of the home page after signing in](./images/add-aad-auth-01.png)
 
-Click the user avatar in the top right corner to access the **Sign Out** link. Clicking **Sign Out** resets the session and returns you to the home page.
+1. Click the user avatar in the top right corner to access the **Sign Out** link. Clicking **Sign Out** resets the session and returns you to the home page.
 
-![A screenshot of the dropdown menu with the Sign Out link](./images/add-aad-auth-02.png)
+    ![A screenshot of the dropdown menu with the Sign Out link](./images/add-aad-auth-02.png)
 
 ## Storing and refreshing tokens
 

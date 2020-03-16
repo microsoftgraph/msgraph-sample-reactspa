@@ -16,7 +16,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
 1. Create a React component to display the results of the call. Create a new file in the `./src` directory named `Calendar.tsx` and add the following code.
 
-    ```TSX
+    ```typescript
     import React from 'react';
     import { Table } from 'reactstrap';
     import moment from 'moment';
@@ -85,7 +85,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
 1. Add the following component just after the existing `<Route>`.
 
-    ```TSX
+    ```typescript
     <Route exact path="/calendar"
       render={(props) =>
         <Calendar {...props}
