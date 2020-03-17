@@ -1,14 +1,10 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 import moment from 'moment';
-import { UserAgentApplication } from 'msal';
 import { Event } from 'microsoft-graph';
 import { config } from './Config';
 import { getEvents } from './GraphService';
-
-interface CalendarProps {
-  showError: any;
-}
+import withAuthProvider, { AuthComponentProps } from './AuthProvider';
 
 interface CalendarState {
   events: Event[];
@@ -21,7 +17,7 @@ function formatDateTime(dateTime: string | undefined) {
   }
 }
 
-export default class Calendar extends React.Component<CalendarProps, CalendarState> {
+class Calendar extends React.Component<AuthComponentProps, CalendarState> {
   constructor(props: any) {
     super(props);
 
@@ -33,18 +29,14 @@ export default class Calendar extends React.Component<CalendarProps, CalendarSta
   async componentDidMount() {
     try {
       // Get the user's access token
-      const msal = window.msal as UserAgentApplication;
-
-      var accessToken = await msal.acquireTokenSilent({
-        scopes: config.scopes
-      });
+      var accessToken = await this.props.getAccessToken(config.scopes);
       // Get the user's events
-      var events = await getEvents(accessToken.accessToken);
+      var events = await getEvents(accessToken);
       // Update the array of events in state
       this.setState({events: events.value});
     }
     catch(err) {
-      this.props.showError('ERROR', JSON.stringify(err));
+      this.props.setError('ERROR', JSON.stringify(err));
     }
   }
 
@@ -81,3 +73,5 @@ export default class Calendar extends React.Component<CalendarProps, CalendarSta
   }
   // </renderSnippet>
 }
+
+export default withAuthProvider(Calendar);

@@ -20,14 +20,10 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     import React from 'react';
     import { Table } from 'reactstrap';
     import moment from 'moment';
-    import { UserAgentApplication } from 'msal';
     import { Event } from 'microsoft-graph';
     import { config } from './Config';
     import { getEvents } from './GraphService';
-
-    interface CalendarProps {
-      showError: any;
-    }
+    import withAuthProvider, { AuthComponentProps } from './AuthProvider';
 
     interface CalendarState {
       events: Event[];
@@ -40,7 +36,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
       }
     }
 
-    export default class Calendar extends React.Component<CalendarProps, CalendarState> {
+    class Calendar extends React.Component<AuthComponentProps, CalendarState> {
       constructor(props: any) {
         super(props);
 
@@ -52,18 +48,14 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
       async componentDidMount() {
         try {
           // Get the user's access token
-          const msal = window.msal as UserAgentApplication;
-
-          var accessToken = await msal.acquireTokenSilent({
-            scopes: config.scopes
-          });
+          var accessToken = await this.props.getAccessToken(config.scopes);
           // Get the user's events
-          var events = await getEvents(accessToken.accessToken);
+          var events = await getEvents(accessToken);
           // Update the array of events in state
           this.setState({events: events.value});
         }
         catch(err) {
-          this.props.showError('ERROR', JSON.stringify(err));
+          this.props.setError('ERROR', JSON.stringify(err));
         }
       }
 
@@ -73,6 +65,8 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
         );
       }
     }
+
+    export default withAuthProvider(Calendar);
     ```
 
     For now this just renders the array of events in JSON on the page.
@@ -88,8 +82,9 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     ```typescript
     <Route exact path="/calendar"
       render={(props) =>
-        <Calendar {...props}
-          showError={this.setErrorMessage.bind(this)} />
+        this.props.isAuthenticated ?
+          <Calendar {...props} /> :
+          <Redirect to="/" />
       } />
     ```
 

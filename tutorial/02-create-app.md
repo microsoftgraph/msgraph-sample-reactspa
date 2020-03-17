@@ -59,56 +59,42 @@ Start by creating a navbar for the app.
 
     ```typescript
     import React, { Component } from 'react';
-    import { BrowserRouter as Router, Route } from 'react-router-dom';
+    import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
     import { Container } from 'reactstrap';
     import NavBar from './NavBar';
     import ErrorMessage from './ErrorMessage';
     import Welcome from './Welcome';
     import 'bootstrap/dist/css/bootstrap.css';
 
-    class App extends Component {
-      constructor(props) {
-        super(props);
-
-        this.state = {
-          isAuthenticated: false,
-          user: {},
-          error: null
-        };
-      }
-
+    class App extends Component<any> {
       render() {
         let error = null;
-        if (this.state.error) {
-          error = <ErrorMessage message={this.state.error.message} debug={this.state.error.debug} />;
+        if (this.props.error) {
+          error = <ErrorMessage
+            message={this.props.error.message}
+            debug={this.props.error.debug} />;
         }
 
         return (
           <Router>
             <div>
               <NavBar
-                isAuthenticated={this.state.isAuthenticated}
-                authButtonMethod={null}
-                user={this.state.user}/>
+                isAuthenticated={this.props.isAuthenticated}
+                authButtonMethod={this.props.isAuthenticated ? this.props.logout : this.props.login}
+                user={this.props.user}/>
               <Container>
                 {error}
                 <Route exact path="/"
                   render={(props) =>
                     <Welcome {...props}
-                      isAuthenticated={this.state.isAuthenticated}
-                      user={this.state.user}
-                      authButtonMethod={null} />
+                      isAuthenticated={this.props.isAuthenticated}
+                      user={this.props.user}
+                      authButtonMethod={this.props.login} />
                   } />
               </Container>
             </div>
           </Router>
         );
-      }
-
-      setErrorMessage(message, debug) {
-        this.setState({
-          error: {message: message, debug: debug}
-        });
       }
     }
 
