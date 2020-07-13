@@ -94,7 +94,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
 Now you can update the `Calendar` component to display the events in a more user-friendly manner.
 
-1. Replace the existing `render` function in `./src/Calendar.js` with the following function.
+1. Replace the existing `render` function in `./src/Calendar.tsx` with the following function.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/Calendar.tsx" id="renderSnippet":::
 
