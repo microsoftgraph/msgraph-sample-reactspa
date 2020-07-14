@@ -17,32 +17,33 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from 'reactstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 interface NavBarProps {
-  isAuthenticated : boolean;
-  authButtonMethod : any;
-  user : any;
+  isAuthenticated: boolean;
+  authButtonMethod: any;
+  user: any;
 }
 
 interface NavBarState {
-  isOpen : boolean;
+  isOpen: boolean;
 }
 
 function UserAvatar(props: any) {
   // If a user avatar is available, return an img tag with the pic
   if (props.user.avatar) {
     return <img
-            src={props.user.avatar} alt="user"
-            className="rounded-circle align-self-center mr-2"
-            style={{width: '32px'}}></img>;
+      src={props.user.avatar} alt="user"
+      className="rounded-circle align-self-center mr-2"
+      style={{ width: '32px' }}></img>;
   }
 
   // No avatar available, return a default icon
   return <i
-          className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2"
-          style={{width: '32px'}}></i>;
+    className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2"
+    style={{ width: '32px' }}></i>;
 }
 
 function AuthNavItem(props: NavBarProps) {
@@ -52,7 +53,7 @@ function AuthNavItem(props: NavBarProps) {
     return (
       <UncontrolledDropdown>
         <DropdownToggle nav caret>
-          <UserAvatar user={props.user}/>
+          <UserAvatar user={props.user} />
         </DropdownToggle>
         <DropdownMenu right>
           <h5 className="dropdown-item-text mb-0">{props.user.displayName}</h5>

@@ -5,16 +5,17 @@
 import React from 'react';
 import {
   Button,
-  Jumbotron } from 'reactstrap';
+  Jumbotron
+} from 'reactstrap';
 
 interface WelcomeProps {
-  isAuthenticated : boolean;
-  authButtonMethod : any;
-  user : any;
+  isAuthenticated: boolean;
+  authButtonMethod: any;
+  user: any;
 }
 
 interface WelcomeState {
-  isOpen : boolean;
+  isOpen: boolean;
 }
 
 function WelcomeContent(props: WelcomeProps) {
@@ -38,7 +39,7 @@ export default class Welcome extends React.Component<WelcomeProps, WelcomeState>
       <Jumbotron>
         <h1>React Graph Tutorial</h1>
         <p className="lead">
-            This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React
+          This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React
         </p>
         <WelcomeContent
           isAuthenticated={this.props.isAuthenticated}

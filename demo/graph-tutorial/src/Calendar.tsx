@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 import React from 'react';
 import { Table } from 'reactstrap';
 import moment from 'moment';
@@ -33,9 +35,9 @@ class Calendar extends React.Component<AuthComponentProps, CalendarState> {
       // Get the user's events
       var events = await getEvents(accessToken);
       // Update the array of events in state
-      this.setState({events: events.value});
+      this.setState({ events: events.value });
     }
-    catch(err) {
+    catch (err) {
       this.props.setError('ERROR', JSON.stringify(err));
     }
   }
