@@ -20,7 +20,12 @@ function getAuthenticatedClient(accessToken: string) {
 export async function getUserDetails(accessToken: string) {
   const client = getAuthenticatedClient(accessToken);
 
-  const user = await client.api('/me').get();
+  const user = await client
+    .api('/me')
+    .select('displayName,mail,mailboxSettings,userPrincipalName')
+    .get();
+
+  console.log(JSON.stringify(user));
   return user;
 }
 // </graphServiceSnippet1>

@@ -133,7 +133,9 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
             isAuthenticated: true,
             user: {
               displayName: user.displayName,
-              email: user.mail || user.userPrincipalName
+              email: user.mail || user.userPrincipalName,
+              timeZone: user.mailboxSettings.timeZone,
+              timeFormat: user.mailboxSettings.timeFormat
             },
             error: null
           });
