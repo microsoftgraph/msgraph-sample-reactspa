@@ -26,7 +26,7 @@ class App extends Component<AuthComponentProps> {
           <NavBar
             isAuthenticated={this.props.isAuthenticated}
             authButtonMethod={this.props.isAuthenticated ? this.props.logout : this.props.login}
-            user={this.props.user}/>
+            user={this.props.user} />
           <Container>
             {error}
             <Route exact path="/"

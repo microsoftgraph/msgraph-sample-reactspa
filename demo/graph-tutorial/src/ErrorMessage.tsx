@@ -6,8 +6,8 @@ import React from 'react';
 import { Alert } from 'reactstrap';
 
 interface ErrorMessageProps {
-  debug : string;
-  message : string;
+  debug: string;
+  message: string;
 }
 
 export default class ErrorMessage extends React.Component<ErrorMessageProps> {

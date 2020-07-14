@@ -23,7 +23,7 @@ interface AuthProviderState {
 }
 
 export default function withAuthProvider<T extends React.Component<AuthComponentProps>>
-  (WrappedComponent: new(props: AuthComponentProps, context?: any) => T): React.ComponentClass {
+  (WrappedComponent: new (props: AuthComponentProps, context?: any) => T): React.ComponentClass {
   return class extends React.Component<any, AuthProviderState> {
     private userAgentApplication: UserAgentApplication;
 
@@ -38,12 +38,12 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
       // Initialize the MSAL application object
       this.userAgentApplication = new UserAgentApplication({
         auth: {
-            clientId: config.appId,
-            redirectUri: config.redirectUri
+          clientId: config.appId,
+          redirectUri: config.redirectUri
         },
         cache: {
-            cacheLocation: "sessionStorage",
-            storeAuthStateInCookie: true
+          cacheLocation: "sessionStorage",
+          storeAuthStateInCookie: true
         }
       });
     }
@@ -61,28 +61,28 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
 
     render() {
       return <WrappedComponent
-        error = { this.state.error }
-        isAuthenticated = { this.state.isAuthenticated }
-        user = { this.state.user }
-        login = { () => this.login() }
-        logout = { () => this.logout() }
-        getAccessToken = { (scopes: string[]) => this.getAccessToken(scopes)}
-        setError = { (message: string, debug: string) => this.setErrorMessage(message, debug)}
-        {...this.props} {...this.state} />;
+        error={this.state.error}
+        isAuthenticated={this.state.isAuthenticated}
+        user={this.state.user}
+        login={() => this.login()}
+        logout={() => this.logout()}
+        getAccessToken={(scopes: string[]) => this.getAccessToken(scopes)}
+        setError={(message: string, debug: string) => this.setErrorMessage(message, debug)}
+        {...this.props} />;
     }
 
     async login() {
       try {
         // Login via popup
         await this.userAgentApplication.loginPopup(
-            {
-              scopes: config.scopes,
-              prompt: "select_account"
+          {
+            scopes: config.scopes,
+            prompt: "select_account"
           });
         // After login, get the user's profile
         await this.getUserProfile();
       }
-      catch(err) {
+      catch (err) {
         this.setState({
           isAuthenticated: false,
           user: {},
@@ -151,13 +151,13 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
 
     setErrorMessage(message: string, debug: string) {
       this.setState({
-        error: {message: message, debug: debug}
+        error: { message: message, debug: debug }
       });
     }
 
     normalizeError(error: string | Error): any {
       var normalizedError = {};
-      if (typeof(error) === 'string') {
+      if (typeof (error) === 'string') {
         var errParts = error.split('|');
         normalizedError = errParts.length > 1 ?
           { message: errParts[1], debug: errParts[0] } :

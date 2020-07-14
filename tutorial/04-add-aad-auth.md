@@ -214,7 +214,7 @@ In this section you'll create an authentication provider and implement sign-in a
     export default withAuthProvider(App);
     ```
 
-1. Save your changes and refresh the browser. Click the sign-in button and you should be redirected to `https://login.microsoftonline.com`. Login with your Microsoft account and consent to the requested permissions. The app page should refresh, showing the token.
+1. Save your changes and refresh the browser. Click the sign-in button and you should see a pop-up window that loads `https://login.microsoftonline.com`. Login with your Microsoft account and consent to the requested permissions. The app page should refresh, showing the token.
 
 ### Get user details
 
