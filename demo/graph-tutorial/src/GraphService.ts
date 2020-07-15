@@ -1,9 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { Moment } from "moment";
-
 // <graphServiceSnippet1>
+import moment, { Moment } from 'moment';
+import { Event } from 'microsoft-graph';
+import { PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+
 var graph = require('@microsoft/microsoft-graph-client');
 
 function getAuthenticatedClient(accessToken: string) {
@@ -32,15 +34,15 @@ export async function getUserDetails(accessToken: string) {
 // </graphServiceSnippet1>
 
 // <getUserWeekCalendarSnippet>
-export async function getUserWeekCalendar(accessToken: string, timeZone: string, startDate: Moment) {
+export async function getUserWeekCalendar(accessToken: string, timeZone: string, startDate: Moment): Promise<Event[]> {
   const client = getAuthenticatedClient(accessToken);
 
   // Generate startDateTime and endDateTime query params
   // to display a 7-day window
   var startDateTime = startDate.format();
-  var endDateTime = startDate.add(7, 'day').format();
+  var endDateTime = moment(startDate).add(7, 'day').format();
 
-  const events = await client
+  var response: PageCollection = await client
     .api('/me/calendarview')
     .header("Prefer", `outlook.timezone="${timeZone}"`)
     .query({ startDateTime: startDateTime, endDateTime: endDateTime })
@@ -49,6 +51,23 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
     .top(50)
     .get();
 
-  return events;
+  if (response["@odata.nextLink"]) {
+    // Presence of the nextLink property indicates more results are available
+    // Use a page iterator to get all results
+    var events: Event[] = [];
+
+    var pageIterator = new PageIterator(client, response, (event) => {
+      events.push(event);
+      return true;
+    });
+
+    await pageIterator.iterate();
+
+    return events;
+  } else {
+
+    return response.value;
+  }
+
 }
 // </getUserWeekCalendarSnippet>
