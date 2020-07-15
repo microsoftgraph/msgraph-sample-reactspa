@@ -2,43 +2,66 @@
 // Licensed under the MIT License.
 import React from 'react';
 import { Table } from 'reactstrap';
-import moment from 'moment';
+import moment from 'moment-timezone';
+import { findOneIana } from "windows-iana";
 import { Event } from 'microsoft-graph';
 import { config } from './Config';
-import { getEvents } from './GraphService';
+import { getUserWeekCalendar } from './GraphService';
 import withAuthProvider, { AuthComponentProps } from './AuthProvider';
 
 interface CalendarState {
+  eventsLoaded: boolean;
   events: Event[];
+}
+
+export interface CalendarProps extends AuthComponentProps {
+  timeZone: any;
+  timeFormat: any;
 }
 
 // Helper function to format Graph date/time
 function formatDateTime(dateTime: string | undefined) {
   if (dateTime !== undefined) {
-    return moment.utc(dateTime).local().format('M/D/YY h:mm A');
+    return moment(dateTime).format('M/D/YY h:mm A');
   }
 }
 
 class Calendar extends React.Component<AuthComponentProps, CalendarState> {
   constructor(props: any) {
     super(props);
-
+    console.log('Constructor: ' + JSON.stringify(props.user));
     this.state = {
+      eventsLoaded: false,
       events: []
     };
   }
 
-  async componentDidMount() {
-    try {
-      // Get the user's access token
-      var accessToken = await this.props.getAccessToken(config.scopes);
-      // Get the user's events
-      var events = await getEvents(accessToken);
-      // Update the array of events in state
-      this.setState({ events: events.value });
-    }
-    catch (err) {
-      this.props.setError('ERROR', JSON.stringify(err));
+  async componentDidUpdate()
+  {
+    if (this.props.user && !this.state.eventsLoaded)
+    {
+      try {
+        // Get the user's access token
+        var accessToken = await this.props.getAccessToken(config.scopes);
+
+        // Convert user's Windows time zone ("Pacific Standard Time")
+        // to IANA format ("America/Los_Angeles")
+        // Moment needs IANA format
+        var ianaTimeZone = findOneIana(this.props.user.timeZone);
+
+        // Get midnight on the start of the current week in the user's timezone,
+        // but in UTC. For example, for Pacific Standard Time, the time value would be
+        // 07:00:00Z
+        var startOfWeek = moment.tz(ianaTimeZone!.valueOf()).startOf('week').utc();
+        console.log(`Start of week: ${startOfWeek}`);
+        // Get the user's events
+        var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);
+        // Update the array of events in state
+        this.setState({ eventsLoaded: true, events: events.value });
+      }
+      catch (err) {
+        this.props.setError('ERROR', JSON.stringify(err));
+      }
     }
   }
 

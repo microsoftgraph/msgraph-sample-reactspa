@@ -6,7 +6,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
 1. Open `./src/GraphService.ts` and add the following function.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="getEventsSnippet":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="getUserWeekCalendarSnippet":::
 
     Consider what this code is doing.
 

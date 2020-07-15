@@ -17,13 +17,15 @@
     "@types/reactstrap": "^8.5.0",
     "bootstrap": "^4.5.0",
     "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
     "msal": "^1.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "reactstrap": "^8.5.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "windows-iana": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

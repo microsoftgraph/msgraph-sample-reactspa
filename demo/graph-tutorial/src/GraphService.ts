@@ -1,6 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import { Moment } from "moment";
+
 // <graphServiceSnippet1>
 var graph = require('@microsoft/microsoft-graph-client');
 
@@ -25,21 +27,28 @@ export async function getUserDetails(accessToken: string) {
     .select('displayName,mail,mailboxSettings,userPrincipalName')
     .get();
 
-  console.log(JSON.stringify(user));
   return user;
 }
 // </graphServiceSnippet1>
 
-// <getEventsSnippet>
-export async function getEvents(accessToken: string) {
+// <getUserWeekCalendarSnippet>
+export async function getUserWeekCalendar(accessToken: string, timeZone: string, startDate: Moment) {
   const client = getAuthenticatedClient(accessToken);
 
+  // Generate startDateTime and endDateTime query params
+  // to display a 7-day window
+  var startDateTime = startDate.format();
+  var endDateTime = startDate.add(7, 'day').format();
+
   const events = await client
-    .api('/me/events')
+    .api('/me/calendarview')
+    .header("Prefer", `outlook.timezone="${timeZone}"`)
+    .query({ startDateTime: startDateTime, endDateTime: endDateTime })
     .select('subject,organizer,start,end')
-    .orderby('createdDateTime DESC')
+    .orderby('start/dateTime')
+    .top(50)
     .get();
 
   return events;
 }
-// </getEventsSnippet>
+// </getUserWeekCalendarSnippet>
