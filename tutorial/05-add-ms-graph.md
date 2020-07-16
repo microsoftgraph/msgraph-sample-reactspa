@@ -22,6 +22,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
     ```typescript
     import React from 'react';
+    import { NavLink as RouterNavLink } from 'react-router-dom';
     import { Table } from 'reactstrap';
     import moment from 'moment-timezone';
     import { findOneIana } from "windows-iana";
@@ -118,6 +119,13 @@ Now you can update the `Calendar` component to display the events in a more user
 1. Create a React component to render events in a single day as table rows. Create a new file in the `./src` directory named `CalendarDayRow.tsx` and add the following code.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/CalendarDayRow.tsx" id="CalendarDayRowSnippet":::
+
+1. Add the following `import` statements to the top of **Calendar.tsx**.
+
+    ```typescript
+    import CalendarDayRow from './CalendarDayRow';
+    import './Calendar.css';
+    ```
 
 1. Replace the existing `render` function in `./src/Calendar.tsx` with the following function.
 

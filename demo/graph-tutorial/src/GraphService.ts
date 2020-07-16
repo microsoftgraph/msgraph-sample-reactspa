@@ -42,6 +42,10 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
   var startDateTime = startDate.format();
   var endDateTime = moment(startDate).add(7, 'day').format();
 
+  // GET /me/calendarview?startDateTime=''&endDateTime=''
+  // &$select=subject,organizer,start,end
+  // &$orderby=start/dateTime
+  // &$top=50
   var response: PageCollection = await client
     .api('/me/calendarview')
     .header("Prefer", `outlook.timezone="${timeZone}"`)
@@ -71,3 +75,16 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
 
 }
 // </getUserWeekCalendarSnippet>
+
+// <createEventSnippet>
+export async function createEvent(accessToken: string, newEvent: Event): Promise<Event> {
+  const client = getAuthenticatedClient(accessToken);
+
+  // POST /me/events
+  // JSON representation of the new event is sent in the
+  // request body
+  return await client
+    .api('/me/events')
+    .post(newEvent);
+}
+// </createEventSnippet>

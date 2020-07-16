@@ -36,7 +36,6 @@ export default class CalendarDayRow extends React.Component<CalendarDayRowProps>
     var today = moment();
     var rowClass = today.day() === this.props.date?.day() ? 'table-warning' : '';
     var timeFormat = this.props.timeFormat;
-    console.log(timeFormat);
 
     var dateCell = (
       <td className='calendar-view-date-cell' rowSpan={this.props.events.length <= 0 ? 1 : this.props.events.length}>

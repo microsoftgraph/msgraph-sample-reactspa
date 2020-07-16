@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 import React from 'react';
+import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Table } from 'reactstrap';
 import moment, { Moment } from 'moment-timezone';
 import { findOneIana } from "windows-iana";
@@ -75,7 +76,7 @@ class Calendar extends React.Component<AuthComponentProps, CalendarState> {
       <div>
         <div className="mb-3">
           <h1 className="mb-3">{sunday.format('MMMM D, YYYY')} - {saturday.format('MMMM D, YYYY')}</h1>
-          <a className="btn btn-light btn-sm" href="#">New event</a>
+          <RouterNavLink to="/newevent" className="btn btn-light btn-sm" exact>New event</RouterNavLink>
         </div>
         <div className="calendar-week">
           <div className="table-responsive">
