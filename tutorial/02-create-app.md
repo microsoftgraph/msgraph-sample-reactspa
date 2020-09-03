@@ -32,8 +32,8 @@ Before moving on, install some additional packages that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-npm install react-router-dom@5.2.0 @types/react-router-dom@5.1.5 bootstrap@4.5.0 reactstrap@8.5.1 @types/reactstrap@8.5.0 @fortawesome/fontawesome-free@5.13.1
-npm install moment@2.27.0 moment-timezone@0.5.31 windows-iana@4.2.0 msal@1.3.2 @microsoft/microsoft-graph-client@2.0.0 @types/microsoft-graph@1.13.0
+npm install react-router-dom@5.2.0 @types/react-router-dom@5.1.5 bootstrap@4.5.2 reactstrap@8.5.1 @types/reactstrap@8.5.1 @fortawesome/fontawesome-free@5.14.0
+npm install moment@2.27.0 moment-timezone@0.5.31 windows-iana@4.2.1 msal@1.4.0 @microsoft/microsoft-graph-client@2.0.0 @types/microsoft-graph@1.18.0
 ```
 
 ## Design the app
