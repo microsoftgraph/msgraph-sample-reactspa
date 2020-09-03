@@ -4,7 +4,7 @@ In this exercise you will extend the application from the previous exercise to s
 
 1. Create a new file in the `./src` directory named `Config.ts` and add the following code.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/Config.ts.example":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/Config.example.ts":::
 
     Replace `YOUR_APP_ID_HERE` with the application ID from the Application Registration Portal.
 

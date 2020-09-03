@@ -36,7 +36,7 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
 ## Configure the sample
 
-1. Rename the `./graph-tutorial/src/Config.ts.example` file to `./graph-tutorial/src/Config.ts`.
+1. Rename the `./graph-tutorial/src/Config.example.ts` file to `./graph-tutorial/src/Config.ts`.
 1. Edit the `./graph-tutorial/src/Config.ts` file and make the following changes.
     1. Replace `YOUR_APP_ID_HERE` with the **Application Id** you got from the App Registration Portal.
 1. In your command-line interface (CLI), navigate to the `graph-tutorial` directory and run the following command to install requirements.
