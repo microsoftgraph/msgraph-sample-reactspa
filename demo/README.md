@@ -26,7 +26,7 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
     - Set **Name** to `React Graph Tutorial`.
     - Set **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts**.
-    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `http://localhost:3000`.
+    - Under **Redirect URI**, set the first drop-down to `Single-page application (SPA)` and set the value to `http://localhost:3000`.
 
     ![A screenshot of the Register an application page](/tutorial/images/aad-register-an-app.png)
 
@@ -34,13 +34,9 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
     ![A screenshot of the application ID of the new app registration](/tutorial/images/aad-application-id.png)
 
-1. Select **Authentication** under **Manage**. Locate the **Implicit grant** section and enable **Access tokens** and **ID tokens**. Choose **Save**.
-
-    ![A screenshot of the Implicit grant section](/tutorial/images/aad-implicit-grant.png)
-
 ## Configure the sample
 
-1. Rename the `./graph-tutorial/src/Config.ts.example` file to `./graph-tutorial/src/Config.ts`.
+1. Rename the `./graph-tutorial/src/Config.example.ts` file to `./graph-tutorial/src/Config.ts`.
 1. Edit the `./graph-tutorial/src/Config.ts` file and make the following changes.
     1. Replace `YOUR_APP_ID_HERE` with the **Application Id** you got from the App Registration Portal.
 1. In your command-line interface (CLI), navigate to the `graph-tutorial` directory and run the following command to install requirements.

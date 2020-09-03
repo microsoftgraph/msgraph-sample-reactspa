@@ -3,6 +3,7 @@ export const config = {
   redirectUri: 'http://localhost:3000',
   scopes: [
     'user.read',
-    'calendars.read'
+    'mailboxsettings.read',
+    'calendars.readwrite'
   ]
 };

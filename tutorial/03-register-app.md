@@ -15,14 +15,10 @@ In this exercise, you will create a new Azure AD web application registration us
 
     - Set **Name** to `React Graph Tutorial`.
     - Set **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts**.
-    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `http://localhost:3000`.
+    - Under **Redirect URI**, set the first drop-down to `Single-page application (SPA)` and set the value to `http://localhost:3000`.
 
     ![A screenshot of the Register an application page](./images/aad-register-an-app.png)
 
 1. Choose **Register**. On the **React Graph Tutorial** page, copy the value of the **Application (client) ID** and save it, you will need it in the next step.
 
     ![A screenshot of the application ID of the new app registration](./images/aad-application-id.png)
-
-1. Select **Authentication** under **Manage**. Locate the **Implicit grant** section and enable **Access tokens** and **ID tokens**. Choose **Save**.
-
-    ![A screenshot of the Implicit grant section](./images/aad-implicit-grant.png)
