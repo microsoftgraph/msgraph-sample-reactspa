@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 import React from 'react';
-import { UserAgentApplication } from 'msal';
+import { PublicClientApplication } from '@azure/msal-browser';
 
 import { config } from './Config';
 import { getUserDetails } from './GraphService';
@@ -25,7 +25,7 @@ interface AuthProviderState {
 export default function withAuthProvider<T extends React.Component<AuthComponentProps>>
   (WrappedComponent: new (props: AuthComponentProps, context?: any) => T): React.ComponentClass {
   return class extends React.Component<any, AuthProviderState> {
-    private userAgentApplication: UserAgentApplication;
+    private publicClientApplication: PublicClientApplication;
 
     constructor(props: any) {
       super(props);
@@ -36,7 +36,7 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
       };
 
       // Initialize the MSAL application object
-      this.userAgentApplication = new UserAgentApplication({
+      this.publicClientApplication = new PublicClientApplication({
         auth: {
           clientId: config.appId,
           redirectUri: config.redirectUri
@@ -51,9 +51,9 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
     componentDidMount() {
       // If MSAL already has an account, the user
       // is already logged in
-      var account = this.userAgentApplication.getAccount();
+      const accounts = this.publicClientApplication.getAllAccounts();
 
-      if (account) {
+      if (accounts && accounts.length > 0) {
         // Enhance user object with data from Graph
         this.getUserProfile();
       }
@@ -74,11 +74,12 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
     async login() {
       try {
         // Login via popup
-        await this.userAgentApplication.loginPopup(
+        await this.publicClientApplication.loginPopup(
           {
             scopes: config.scopes,
             prompt: "select_account"
           });
+
         // After login, get the user's profile
         await this.getUserProfile();
       }
@@ -92,27 +93,34 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
     }
 
     logout() {
-      this.userAgentApplication.logout();
+      this.publicClientApplication.logout();
     }
 
     async getAccessToken(scopes: string[]): Promise<string> {
       try {
+        const accounts = this.publicClientApplication
+          .getAllAccounts();
+
+        if (accounts.length <= 0) throw new Error('login_required');
         // Get the access token silently
         // If the cache contains a non-expired token, this function
         // will just return the cached token. Otherwise, it will
         // make a request to the Azure OAuth endpoint to get a token
-        var silentResult = await this.userAgentApplication.acquireTokenSilent({
-          scopes: scopes
-        });
+        var silentResult = await this.publicClientApplication
+          .acquireTokenSilent({
+            scopes: scopes,
+            account: accounts[0]
+          });
 
         return silentResult.accessToken;
       } catch (err) {
         // If a silent request fails, it may be because the user needs
         // to login or grant consent to one or more of the requested scopes
         if (this.isInteractionRequired(err)) {
-          var interactiveResult = await this.userAgentApplication.acquireTokenPopup({
-            scopes: scopes
-          });
+          var interactiveResult = await this.publicClientApplication
+            .acquireTokenPopup({
+              scopes: scopes
+            });
 
           return interactiveResult.accessToken;
         } else {
@@ -181,7 +189,8 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
       return (
         error.message.indexOf('consent_required') > -1 ||
         error.message.indexOf('interaction_required') > -1 ||
-        error.message.indexOf('login_required') > -1
+        error.message.indexOf('login_required') > -1 ||
+        error.message.indexOf('no_account_in_silent_request') > -1
       );
     }
   }
