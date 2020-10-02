@@ -24,7 +24,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     import React from 'react';
     import { NavLink as RouterNavLink } from 'react-router-dom';
     import { Table } from 'reactstrap';
-    import moment from 'moment-timezone';
+    import moment, { Moment } from 'moment-timezone';
     import { findOneIana } from "windows-iana";
     import { Event } from 'microsoft-graph';
     import { config } from './Config';
