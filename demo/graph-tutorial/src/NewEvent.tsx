@@ -87,7 +87,7 @@ class NewEvent extends React.Component<AuthComponentProps, NewEventState> {
         timeZone: this.props.user.timeZone
       },
       end: {
-        dateTime: this.state.start,
+        dateTime: this.state.end,
         timeZone: this.props.user.timeZone
       },
       // Only add if a body was given
