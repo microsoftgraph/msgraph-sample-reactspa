@@ -142,7 +142,7 @@ export default function withAuthProvider<T extends React.Component<AuthComponent
             user: {
               displayName: user.displayName,
               email: user.mail || user.userPrincipalName,
-              timeZone: user.mailboxSettings.timeZone,
+              timeZone: user.mailboxSettings.timeZone || 'UTC',
               timeFormat: user.mailboxSettings.timeFormat
             },
             error: null
