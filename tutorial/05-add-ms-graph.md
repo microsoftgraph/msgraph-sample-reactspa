@@ -49,31 +49,35 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
       }
 
       async componentDidUpdate() {
-        try {
-          // Get the user's access token
-          var accessToken = await this.props.getAccessToken(config.scopes);
-          // Convert user's Windows time zone ("Pacific Standard Time")
-          // to IANA format ("America/Los_Angeles")
-          // Moment needs IANA format
-          var ianaTimeZone = findOneIana(this.props.user.timeZone);
+        if (this.props.user && !this.state.eventsLoaded)
+        {
+          try {
+            // Get the user's access token
+            var accessToken = await this.props.getAccessToken(config.scopes);
 
-          // Get midnight on the start of the current week in the user's timezone,
-          // but in UTC. For example, for Pacific Standard Time, the time value would be
-          // 07:00:00Z
-          var startOfWeek = moment.tz(ianaTimeZone!.valueOf()).startOf('week').utc();
+            // Convert user's Windows time zone ("Pacific Standard Time")
+            // to IANA format ("America/Los_Angeles")
+            // Moment needs IANA format
+            var ianaTimeZone = findOneIana(this.props.user.timeZone);
 
-          // Get the user's events
-          var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);
+            // Get midnight on the start of the current week in the user's timezone,
+            // but in UTC. For example, for Pacific Standard Time, the time value would be
+            // 07:00:00Z
+            var startOfWeek = moment.tz(ianaTimeZone!.valueOf()).startOf('week').utc();
 
-          // Update the array of events in state
-          this.setState({
-            eventsLoaded: true,
-            events: events,
-            startOfWeek: startOfWeek
-          });
-        }
-        catch(err) {
-          this.props.setError('ERROR', JSON.stringify(err));
+            // Get the user's events
+            var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);
+
+            // Update the array of events in state
+            this.setState({
+              eventsLoaded: true,
+              events: events,
+              startOfWeek: startOfWeek
+            });
+          }
+          catch (err) {
+            this.props.setError('ERROR', JSON.stringify(err));
+          }
         }
       }
 

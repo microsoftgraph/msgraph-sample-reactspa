@@ -40,7 +40,7 @@ In this section you'll create an authentication provider and implement sign-in a
     }
 
     export default function withAuthProvider<T extends React.Component<AuthComponentProps>>
-      (WrappedComponent: new(props: AuthComponentProps, context?: any) => T): React.ComponentClass {
+      (WrappedComponent: new (props: AuthComponentProps, context?: any) => T): React.ComponentClass {
       return class extends React.Component<any, AuthProviderState> {
         private publicClientApplication: PublicClientApplication;
 
@@ -55,12 +55,12 @@ In this section you'll create an authentication provider and implement sign-in a
           // Initialize the MSAL application object
           this.publicClientApplication = new PublicClientApplication({
             auth: {
-                clientId: config.appId,
-                redirectUri: config.redirectUri
+              clientId: config.appId,
+              redirectUri: config.redirectUri
             },
             cache: {
-                cacheLocation: "sessionStorage",
-                storeAuthStateInCookie: true
+              cacheLocation: "sessionStorage",
+              storeAuthStateInCookie: true
             }
           });
         }
@@ -78,13 +78,13 @@ In this section you'll create an authentication provider and implement sign-in a
 
         render() {
           return <WrappedComponent
-            error = { this.state.error }
-            isAuthenticated = { this.state.isAuthenticated }
-            user = { this.state.user }
-            login = { () => this.login() }
-            logout = { () => this.logout() }
-            getAccessToken = { (scopes: string[]) => this.getAccessToken(scopes) }
-            setError = { (message: string, debug: string) => this.setErrorMessage(message, debug) }
+            error={ this.state.error }
+            isAuthenticated={ this.state.isAuthenticated }
+            user={ this.state.user }
+            login={ () => this.login() }
+            logout={ () => this.logout() }
+            getAccessToken={ (scopes: string[]) => this.getAccessToken(scopes) }
+            setError={ (message: string, debug: string) => this.setErrorMessage(message, debug) }
             { ...this.props } />;
         }
 
@@ -92,15 +92,15 @@ In this section you'll create an authentication provider and implement sign-in a
           try {
             // Login via popup
             await this.publicClientApplication.loginPopup(
-                {
-                  scopes: config.scopes,
-                  prompt: "select_account"
+              {
+                scopes: config.scopes,
+                prompt: "select_account"
               });
 
             // After login, get the user's profile
             await this.getUserProfile();
           }
-          catch(err) {
+          catch (err) {
             this.setState({
               isAuthenticated: false,
               user: {},
@@ -124,10 +124,10 @@ In this section you'll create an authentication provider and implement sign-in a
             // will just return the cached token. Otherwise, it will
             // make a request to the Azure OAuth endpoint to get a token
             var silentResult = await this.publicClientApplication
-                .acquireTokenSilent({
-                  scopes: scopes,
-                  account: accounts[0]
-                });
+              .acquireTokenSilent({
+                scopes: scopes,
+                account: accounts[0]
+              });
 
             return silentResult.accessToken;
           } catch (err) {
@@ -135,9 +135,9 @@ In this section you'll create an authentication provider and implement sign-in a
             // to login or grant consent to one or more of the requested scopes
             if (this.isInteractionRequired(err)) {
               var interactiveResult = await this.publicClientApplication
-                  .acquireTokenPopup({
-                    scopes: scopes
-                  });
+                .acquireTokenPopup({
+                  scopes: scopes
+                });
 
               return interactiveResult.accessToken;
             } else {
@@ -169,13 +169,13 @@ In this section you'll create an authentication provider and implement sign-in a
 
         setErrorMessage(message: string, debug: string) {
           this.setState({
-            error: {message: message, debug: debug}
+            error: { message: message, debug: debug }
           });
         }
 
         normalizeError(error: string | Error): any {
           var normalizedError = {};
-          if (typeof(error) === 'string') {
+          if (typeof (error) === 'string') {
             var errParts = error.split('|');
             normalizedError = errParts.length > 1 ?
               { message: errParts[1], debug: errParts[0] } :

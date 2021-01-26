@@ -21,6 +21,7 @@ interface CalendarState {
 class Calendar extends React.Component<AuthComponentProps, CalendarState> {
   constructor(props: any) {
     super(props);
+
     this.state = {
       eventsLoaded: false,
       events: [],
@@ -28,8 +29,7 @@ class Calendar extends React.Component<AuthComponentProps, CalendarState> {
     };
   }
 
-  async componentDidUpdate()
-  {
+  async componentDidUpdate() {
     if (this.props.user && !this.state.eventsLoaded)
     {
       try {
