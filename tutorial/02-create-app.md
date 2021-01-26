@@ -5,14 +5,17 @@ In this section you'll create a new React app.
 1. Open your command-line interface (CLI), navigate to a directory where you have rights to create files, and run the following commands to create a new React app.
 
     ```Shell
-    npx create-react-app@3.4.1 graph-tutorial --template typescript
+    npx create-react-app@4.0.1 graph-tutorial --template typescript
     ```
 
 1. Once the command finishes, change to the `graph-tutorial` directory in your CLI and run the following command to start a local web server.
 
     ```Shell
-    npm start
+    yarn start
     ```
+
+    > [!NOTE]
+    > If you do not have [Yarn](https://yarnpkg.com/) installed, you can use `npm start` instead.
 
 Your default browser opens to [https://localhost:3000/](https://localhost:3000) with a default React page. If your browser doesn't open, open it and browse to [https://localhost:3000/](https://localhost:3000) to verify that the new app works.
 
@@ -32,8 +35,8 @@ Before moving on, install some additional packages that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-npm install react-router-dom@5.2.0 @types/react-router-dom@5.1.5 bootstrap@4.5.2 reactstrap@8.5.1 @types/reactstrap@8.5.1 @fortawesome/fontawesome-free@5.14.0
-npm install moment@2.27.0 moment-timezone@0.5.31 windows-iana@4.2.1 @azure/msal-browser@2.1.0 @microsoft/microsoft-graph-client@2.0.0 @types/microsoft-graph@1.18.0
+yarn add react-router-dom@5.2.0 @types/react-router-dom@5.1.7 bootstrap@4.6.0 reactstrap@8.9.0 @types/reactstrap@8.7.2 @fortawesome/fontawesome-free@5.15.2
+yarn add moment@2.29.1 moment-timezone@0.5.32 windows-iana@4.2.1 @azure/msal-browser@2.10.0 @microsoft/microsoft-graph-client@2.2.1 @types/microsoft-graph@1.28.0
 ```
 
 ## Design the app
@@ -82,7 +85,7 @@ Start by creating a navbar for the app.
               <NavBar
                 isAuthenticated={this.props.isAuthenticated}
                 authButtonMethod={this.props.isAuthenticated ? this.props.logout : this.props.login}
-                user={this.props.user}/>
+                user={this.props.user} />
               <Container>
                 {error}
                 <Route exact path="/"
@@ -102,6 +105,6 @@ Start by creating a navbar for the app.
     export default App;
     ```
 
-1. Save all of your changes and refresh the page. Now, the app should look very different.
+1. Save all of your changes and restart the app. Now, the app should look very different.
 
     ![A screenshot of the redesigned home page](images/create-app-01.png)

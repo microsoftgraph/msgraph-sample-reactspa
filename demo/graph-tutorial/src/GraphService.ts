@@ -4,7 +4,7 @@
 // <graphServiceSnippet1>
 import moment, { Moment } from 'moment';
 import { Event } from 'microsoft-graph';
-import { PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+import { GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
 
 var graph = require('@microsoft/microsoft-graph-client');
 
@@ -48,11 +48,11 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
   // &$top=50
   var response: PageCollection = await client
     .api('/me/calendarview')
-    .header("Prefer", `outlook.timezone="${timeZone}"`)
+    .header('Prefer', `outlook.timezone="${timeZone}"`)
     .query({ startDateTime: startDateTime, endDateTime: endDateTime })
     .select('subject,organizer,start,end')
     .orderby('start/dateTime')
-    .top(50)
+    .top(25)
     .get();
 
   if (response["@odata.nextLink"]) {
@@ -60,10 +60,16 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
     // Use a page iterator to get all results
     var events: Event[] = [];
 
+    // Must include the time zone header in page
+    // requests too
+    var options: GraphRequestOptions = {
+      headers: { 'Prefer': `outlook.timezone="${timeZone}"` }
+    };
+
     var pageIterator = new PageIterator(client, response, (event) => {
       events.push(event);
       return true;
-    });
+    }, options);
 
     await pageIterator.iterate();
 
@@ -72,7 +78,6 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
 
     return response.value;
   }
-
 }
 // </getUserWeekCalendarSnippet>
 

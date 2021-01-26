@@ -15,7 +15,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     - The `query` method adds the `startDateTime` and `endDateTime` parameters, defining the window of time for the calendar view.
     - The `select` method limits the fields returned for each events to just those the view will actually use.
     - The `orderby` method sorts the results by the date and time they were created, with the most recent item being first.
-    - The `top` method limits the results to the first 50 events.
+    - The `top` method limits the results in a single page to 25 events.
     - If the response contains an `@odata.nextLink` value, indicating there are more results available, a `PageIterator` object is used to [page through the collection](https://docs.microsoft.com/graph/sdks/paging?tabs=typeScript) to get all of the results.
 
 1. Create a React component to display the results of the call. Create a new file in the `./src` directory named `Calendar.tsx` and add the following code.
@@ -49,31 +49,35 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
       }
 
       async componentDidUpdate() {
-        try {
-          // Get the user's access token
-          var accessToken = await this.props.getAccessToken(config.scopes);
-          // Convert user's Windows time zone ("Pacific Standard Time")
-          // to IANA format ("America/Los_Angeles")
-          // Moment needs IANA format
-          var ianaTimeZone = findOneIana(this.props.user.timeZone);
+        if (this.props.user && !this.state.eventsLoaded)
+        {
+          try {
+            // Get the user's access token
+            var accessToken = await this.props.getAccessToken(config.scopes);
 
-          // Get midnight on the start of the current week in the user's timezone,
-          // but in UTC. For example, for Pacific Standard Time, the time value would be
-          // 07:00:00Z
-          var startOfWeek = moment.tz(ianaTimeZone!.valueOf()).startOf('week').utc();
+            // Convert user's Windows time zone ("Pacific Standard Time")
+            // to IANA format ("America/Los_Angeles")
+            // Moment needs IANA format
+            var ianaTimeZone = findOneIana(this.props.user.timeZone);
 
-          // Get the user's events
-          var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);
+            // Get midnight on the start of the current week in the user's timezone,
+            // but in UTC. For example, for Pacific Standard Time, the time value would be
+            // 07:00:00Z
+            var startOfWeek = moment.tz(ianaTimeZone!.valueOf()).startOf('week').utc();
 
-          // Update the array of events in state
-          this.setState({
-            eventsLoaded: true,
-            events: events,
-            startOfWeek: startOfWeek
-          });
-        }
-        catch(err) {
-          this.props.setError('ERROR', JSON.stringify(err));
+            // Get the user's events
+            var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);
+
+            // Update the array of events in state
+            this.setState({
+              eventsLoaded: true,
+              events: events,
+              startOfWeek: startOfWeek
+            });
+          }
+          catch (err) {
+            this.props.setError('ERROR', JSON.stringify(err));
+          }
         }
       }
 
