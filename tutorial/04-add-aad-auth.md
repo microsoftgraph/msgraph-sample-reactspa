@@ -83,9 +83,9 @@ In this section you'll create an authentication provider and implement sign-in a
             user = { this.state.user }
             login = { () => this.login() }
             logout = { () => this.logout() }
-            getAccessToken = { (scopes: string[]) => this.getAccessToken(scopes)}
-            setError = { (message: string, debug: string) => this.setErrorMessage(message, debug)}
-            {...this.props} {...this.state} />;
+            getAccessToken = { (scopes: string[]) => this.getAccessToken(scopes) }
+            setError = { (message: string, debug: string) => this.setErrorMessage(message, debug) }
+            { ...this.props } />;
         }
 
         async login() {
