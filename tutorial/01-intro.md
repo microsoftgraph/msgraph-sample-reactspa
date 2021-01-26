@@ -15,17 +15,7 @@ You should also have either a personal Microsoft account with a mailbox on Outlo
 - You can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.
 
 > [!NOTE]
-> This tutorial was written with Node version 12.16.1. The steps in this guide may work with other versions, but that has not been tested.
-
-## Watch the tutorial
-
-This module has been recorded and is available in the Office Development YouTube channel.
-
-<!-- markdownlint-disable MD033 MD034 -->
-<br/>
-
-> [!VIDEO https://www.youtube-nocookie.com/embed/IghiKqly-HY]
-<!-- markdownlint-enable MD033 MD034 -->
+> This tutorial was written with Node version 14.15.0. The steps in this guide may work with other versions, but that has not been tested.
 
 ## Feedback
 
