@@ -15,7 +15,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     - The `query` method adds the `startDateTime` and `endDateTime` parameters, defining the window of time for the calendar view.
     - The `select` method limits the fields returned for each events to just those the view will actually use.
     - The `orderby` method sorts the results by the date and time they were created, with the most recent item being first.
-    - The `top` method limits the results to the first 50 events.
+    - The `top` method limits the results in a single page to 25 events.
     - If the response contains an `@odata.nextLink` value, indicating there are more results available, a `PageIterator` object is used to [page through the collection](https://docs.microsoft.com/graph/sdks/paging?tabs=typeScript) to get all of the results.
 
 1. Create a React component to display the results of the call. Create a new file in the `./src` directory named `Calendar.tsx` and add the following code.
