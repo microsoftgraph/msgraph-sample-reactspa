@@ -25,7 +25,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     import { NavLink as RouterNavLink } from 'react-router-dom';
     import { Table } from 'reactstrap';
     import moment, { Moment } from 'moment-timezone';
-    import { findOneIana } from "windows-iana";
+    import { findIana } from "windows-iana";
     import { Event } from 'microsoft-graph';
     import { config } from './Config';
     import { getUserWeekCalendar } from './GraphService';
@@ -58,12 +58,12 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
             // Convert user's Windows time zone ("Pacific Standard Time")
             // to IANA format ("America/Los_Angeles")
             // Moment needs IANA format
-            var ianaTimeZone = findOneIana(this.props.user.timeZone);
+            var ianaTimeZones = findIana(this.props.user.timeZone);
 
             // Get midnight on the start of the current week in the user's timezone,
             // but in UTC. For example, for Pacific Standard Time, the time value would be
             // 07:00:00Z
-            var startOfWeek = moment.tz(ianaTimeZone!.valueOf()).startOf('week').utc();
+            var startOfWeek = moment.tz(ianaTimeZones![0].valueOf()).startOf('week').utc();
 
             // Get the user's events
             var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);

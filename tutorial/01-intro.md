@@ -7,7 +7,7 @@ This tutorial teaches you how to build a React single-page app that uses the Mic
 
 ## Prerequisites
 
-Before you start this tutorial, you should have [Node.js](https://nodejs.org) installed on your development machine. If you do not have Node.js, visit the previous link for download options.
+Before you start this tutorial, you should have [Node.js](https://nodejs.org) and [Yarn](https://classic.yarnpkg.com/) installed on your development machine. If you do not have Node.js or Yarn, visit the previous links for download options.
 
 You should also have either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account. If you don't have a Microsoft account, there are a couple of options to get a free account:
 
@@ -15,7 +15,7 @@ You should also have either a personal Microsoft account with a mailbox on Outlo
 - You can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.
 
 > [!NOTE]
-> This tutorial was written with Node version 14.15.0. The steps in this guide may work with other versions, but that has not been tested.
+> This tutorial was written with Node version 14.15.0 and Yarn version 1.22.10. The steps in this guide may work with other versions, but that has not been tested.
 
 ## Feedback
 
