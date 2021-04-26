@@ -5,7 +5,7 @@ In this section you'll create a new React app.
 1. Open your command-line interface (CLI), navigate to a directory where you have rights to create files, and run the following commands to create a new React app.
 
     ```Shell
-    npx create-react-app@4.0.1 graph-tutorial --template typescript
+    yarn create react-app graph-tutorial --template typescript
     ```
 
 1. Once the command finishes, change to the `graph-tutorial` directory in your CLI and run the following command to start a local web server.
@@ -35,8 +35,9 @@ Before moving on, install some additional packages that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-yarn add react-router-dom@5.2.0 @types/react-router-dom@5.1.7 bootstrap@4.6.0 reactstrap@8.9.0 @types/reactstrap@8.7.2 @fortawesome/fontawesome-free@5.15.2
-yarn add moment@2.29.1 moment-timezone@0.5.32 windows-iana@4.2.1 @azure/msal-browser@2.10.0 @microsoft/microsoft-graph-client@2.2.1 @types/microsoft-graph@1.28.0
+yarn add react-router-dom@5.2.0 bootstrap@4.6.0 reactstrap@8.9.0 @fortawesome/fontawesome-free@5.15.3
+yarn add moment-timezone@0.5.33 windows-iana@5.0.2 @azure/msal-browser@2.14.1 @microsoft/microsoft-graph-client@2.2.1
+yarn add -D @types/react-router-dom@5.1.7 @types/microsoft-graph@1.36.0
 ```
 
 ## Design the app
