@@ -3,16 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-browser": "^2.14.1",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@azure/identity": "2.0.0-beta.3",
     "@microsoft/microsoft-graph-client": "3.0.0-Preview.1",
-    "bootstrap": "^4.6.0",
-    "moment-timezone": "^0.5.33",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "bootstrap": "^5.0.1",
+    "date-fns": "^2.22.1",
+    "date-fns-tz": "^1.1.4",
     "react": "^17.0.2",
+    "react-bootstrap": "2.0.0-alpha.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "reactstrap": "^8.9.0",
+    "typescript": "^4.1.2",
     "web-vitals": "^1.0.1",
     "windows-iana": "^5.0.2"
   },
@@ -41,15 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^13.1.5",
-    "@types/jest": "^26.0.23",
-    "@types/microsoft-graph": "^1.36.0",
-    "@types/node": "^14.14.41",
-    "@types/react": "^17.0.4",
-    "@types/react-dom": "^17.0.3",
-    "@types/react-router-dom": "^5.1.7",
-    "typescript": "^4.2.4"
+    "@types/microsoft-graph": "1.38.0",
+    "@types/react-router-dom": "5.1.7"
   }
 }

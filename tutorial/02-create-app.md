@@ -8,7 +8,7 @@ In this section you'll create a new React app.
     yarn create react-app graph-tutorial --template typescript
     ```
 
-1. Once the command finishes, change to the `graph-tutorial` directory in your CLI and run the following command to start a local web server.
+1. Once the command finishes, change to the **graph-tutorial**`** directory in your CLI and run the following command to start a local web server.
 
     ```Shell
     yarn start
@@ -35,16 +35,56 @@ Before moving on, install some additional packages that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-yarn add react-router-dom@5.2.0 bootstrap@4.6.0 reactstrap@8.9.0 @fortawesome/fontawesome-free@5.15.3
-yarn add moment-timezone@0.5.33 windows-iana@5.0.2 @azure/msal-browser@2.14.1 @microsoft/microsoft-graph-client@2.2.1
-yarn add -D @types/react-router-dom@5.1.7 @types/microsoft-graph@1.36.0
+yarn add react-router-dom@5.2.0 bootstrap@5.0.1 react-bootstrap@2.0.0-alpha.2 windows-iana@5.0.2
+yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/identity@2.0.0-beta.3 @microsoft/microsoft-graph-client@3.0.0-Preview.1
+yarn add -D @types/react-router-dom@5.1.7 @types/microsoft-graph@1.38.0
 ```
 
 ## Design the app
 
-Start by creating a navbar for the app.
+Start by creating a [context](https://reactjs.org/docs/context.html) for the app.
 
-1. Create a new file in the `./src` directory named `NavBar.tsx` and add the following code.
+1. Create a new file in the **./src** directory named **AppContext.tsx** and add the following code.
+
+    :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="AppContextSnippet":::
+
+1. Add the following function at the end of **./src/AppContext.tsx**.
+
+    ```typescript
+    function useProvideAppContext() {
+      const [user, setUser] = useState<AppUser | undefined>(undefined);
+      const [error, setError] = useState<AppError | undefined>(undefined);
+
+      const signIn = async () => {
+        // TEMPORARY
+        setUser({ displayName: "Test User", email: "test@contoso.com" });
+      };
+
+      const signOut = async () => {
+        // TEMPORARY
+        setUser(undefined);
+      };
+
+      const displayError = (message: string, debug?: string) => {
+        setError({message, debug});
+      }
+
+      const clearError = () => {
+        setError(undefined);
+      }
+
+      return {
+        user,
+        error,
+        signIn,
+        signOut,
+        displayError,
+        clearError
+      };
+    }
+    ```
+
+1. Create a navbar for the app. Create a new file in the `./src` directory named `NavBar.tsx` and add the following code.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/NavBar.tsx" id="NavBarSnippet":::
 
@@ -63,47 +103,32 @@ Start by creating a navbar for the app.
 1. Open `./src/App.tsx` and replace its entire contents with the following.
 
     ```typescript
-    import React, { Component } from 'react';
     import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-    import { Container } from 'reactstrap';
-    import NavBar from './NavBar';
+    import ProvideAppContext from './AppContext';
     import ErrorMessage from './ErrorMessage';
+    import NavBar from './NavBar';
     import Welcome from './Welcome';
+    import { Container } from 'react-bootstrap';
     import 'bootstrap/dist/css/bootstrap.css';
 
-    class App extends Component<any> {
-      render() {
-        let error = null;
-        if (this.props.error) {
-          error = <ErrorMessage
-            message={this.props.error.message}
-            debug={this.props.error.debug} />;
-        }
-
-        return (
+    export default function App() {
+      return(
+        <ProvideAppContext>
           <Router>
             <div>
-              <NavBar
-                isAuthenticated={this.props.isAuthenticated}
-                authButtonMethod={this.props.isAuthenticated ? this.props.logout : this.props.login}
-                user={this.props.user} />
+              <NavBar />
               <Container>
-                {error}
+                <ErrorMessage />
                 <Route exact path="/"
                   render={(props) =>
-                    <Welcome {...props}
-                      isAuthenticated={this.props.isAuthenticated}
-                      user={this.props.user}
-                      authButtonMethod={this.props.login} />
+                    <Welcome {...props} />
                   } />
               </Container>
             </div>
           </Router>
-        );
-      }
+        </ProvideAppContext>
+      );
     }
-
-    export default App;
     ```
 
 1. Save all of your changes and restart the app. Now, the app should look very different.
