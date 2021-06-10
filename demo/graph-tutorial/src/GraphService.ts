@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+// <GetUserSnippet>
 import { AuthProvider, Client } from '@microsoft/microsoft-graph-client';
 import { User } from 'microsoft-graph';
 
 let graphClient: Client | undefined = undefined;
 
-// <GraphClientInitSnippet>
 function ensureClient(authProvider: AuthProvider) {
   if (!graphClient) {
     graphClient = Client.init({
@@ -16,9 +16,7 @@ function ensureClient(authProvider: AuthProvider) {
 
   return graphClient;
 }
-// </GraphClientInitSnippet>
 
-// <AuthenticateUserSnippet>
 export async function getUser(authProvider: AuthProvider): Promise<User> {
   ensureClient(authProvider);
 
@@ -30,10 +28,4 @@ export async function getUser(authProvider: AuthProvider): Promise<User> {
 
   return user;
 }
-// </AuthenticateUserSnippet>
-
-// <SignOutSnippet>
-export function signOutUser() {
-  graphClient = undefined;
-}
-// </SignOutSnippet>
+// </GetUserSnippet>
