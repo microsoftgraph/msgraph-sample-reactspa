@@ -29,14 +29,14 @@ Before moving on, install some additional packages that you will use later:
 - [fontawesome-free](https://github.com/FortAwesome/Font-Awesome) for icons.
 - [moment](https://github.com/moment/moment) for formatting dates and times.
 - [windows-iana](https://github.com/rubenillodo/windows-iana) for translating Windows time zones to IANA format.
-- [msal-browser](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-browser) for authenticating to Azure Active Directory and retrieving access tokens.
+- [msal-react](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-react) for authenticating to Azure Active Directory and retrieving access tokens.
 - [microsoft-graph-client](https://github.com/microsoftgraph/msgraph-sdk-javascript) for making calls to Microsoft Graph.
 
 Run the following command in your CLI.
 
 ```Shell
 yarn add react-router-dom@5.2.0 bootstrap@5.0.1 react-bootstrap@2.0.0-alpha.2 windows-iana@5.0.2
-yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/identity@2.0.0-beta.3 @microsoft/microsoft-graph-client@3.0.0-Preview.1
+yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/msal-react@1.0.0 @azure/msal-browser@2.14.2 @microsoft/microsoft-graph-client@3.0.0-Preview.2
 yarn add -D @types/react-router-dom@5.1.7 @types/microsoft-graph@1.38.0
 ```
 
@@ -44,7 +44,22 @@ yarn add -D @types/react-router-dom@5.1.7 @types/microsoft-graph@1.38.0
 
 Start by creating a [context](https://reactjs.org/docs/context.html) for the app.
 
-1. Create a new file in the **./src** directory named **AppContext.tsx** and add the following code.
+1. Create a new file in the **./src** directory named **AppContext.tsx** and add the following `import` statements.
+
+    ```typescript
+    import React, {
+      useContext,
+      createContext,
+      useState,
+      MouseEventHandler,
+      useEffect} from 'react';
+
+    import config from './Config';
+    import { AuthProvider, AuthProviderCallback } from '@microsoft/microsoft-graph-client';
+    import { useMsal } from '@azure/msal-react';
+    ```
+
+1. Add the following code.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="AppContextSnippet":::
 
@@ -55,16 +70,6 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
       const [user, setUser] = useState<AppUser | undefined>(undefined);
       const [error, setError] = useState<AppError | undefined>(undefined);
 
-      const signIn = async () => {
-        // TEMPORARY
-        setUser({ displayName: "Test User", email: "test@contoso.com" });
-      };
-
-      const signOut = async () => {
-        // TEMPORARY
-        setUser(undefined);
-      };
-
       const displayError = (message: string, debug?: string) => {
         setError({message, debug});
       }
@@ -73,16 +78,31 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
         setError(undefined);
       }
 
+      const authProvider = async (done: AuthProviderCallback) => {
+        // TODO
+      };
+
+      const signIn = async () => {
+        // TODO
+      };
+
+      const signOut = async () => {
+        // TODO
+      };
+
       return {
         user,
         error,
         signIn,
         signOut,
         displayError,
-        clearError
+        clearError,
+        authProvider
       };
     }
     ```
+
+    You will complete the implementation of this context in later sections.
 
 1. Create a navbar for the app. Create a new file in the `./src` directory named `NavBar.tsx` and add the following code.
 
@@ -104,27 +124,28 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
 
     ```typescript
     import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+    import { Container } from 'react-bootstrap';
+    import { MsalProvider } from '@azure/msal-react'
+    import { IPublicClientApplication } from '@azure/msal-browser';
+
     import ProvideAppContext from './AppContext';
     import ErrorMessage from './ErrorMessage';
     import NavBar from './NavBar';
     import Welcome from './Welcome';
-    import { Container } from 'react-bootstrap';
     import 'bootstrap/dist/css/bootstrap.css';
 
     export default function App() {
       return(
         <ProvideAppContext>
           <Router>
-            <div>
-              <NavBar />
-              <Container>
-                <ErrorMessage />
-                <Route exact path="/"
-                  render={(props) =>
-                    <Welcome {...props} />
-                  } />
-              </Container>
-            </div>
+            <NavBar />
+            <Container>
+              <ErrorMessage />
+              <Route exact path="/"
+                render={(props) =>
+                  <Welcome {...props} />
+                } />
+            </Container>
           </Router>
         </ProvideAppContext>
       );
