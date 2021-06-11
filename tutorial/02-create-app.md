@@ -123,7 +123,7 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
 1. Open `./src/App.tsx` and replace its entire contents with the following.
 
     ```typescript
-    import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+    import { BrowserRouter as Router, Route } from 'react-router-dom';
     import { Container } from 'react-bootstrap';
     import { MsalProvider } from '@azure/msal-react'
     import { IPublicClientApplication } from '@azure/msal-browser';

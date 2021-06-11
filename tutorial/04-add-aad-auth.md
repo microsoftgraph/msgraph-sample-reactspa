@@ -108,6 +108,10 @@ In this section you will modify the `signIn` function to get the user's details 
 
     :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="SignOutSnippet":::
 
+1. Add the following `useEffect` call inside `useProvideAppContext`.
+
+    :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="UseEffectSnippet":::
+
 1. Save your changes and start the app, after sign-in you should end up back on the home page, but the UI should change to indicate that you are signed-in.
 
     ![A screenshot of the home page after signing in](./images/add-aad-auth-01.png)

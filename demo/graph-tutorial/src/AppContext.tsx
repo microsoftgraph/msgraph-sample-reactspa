@@ -131,8 +131,8 @@ function useProvideAppContext() {
     }
   };
 
+  // <UseEffectSnippet>
   useEffect(() => {
-    console.log('useEffect');
     const checkUser = async() => {
       if (!user) {
         try {
@@ -156,6 +156,7 @@ function useProvideAppContext() {
     };
     checkUser();
   });
+  // </UseEffectSnippet>
 
   // <SignInSnippet>
   const signIn = async () => {
