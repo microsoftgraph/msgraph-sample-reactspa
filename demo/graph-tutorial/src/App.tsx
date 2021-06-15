@@ -21,6 +21,7 @@ type AppProps= {
 // </AppPropsSnippet>
 
 export default function App({ pca }: AppProps) {
+  // <ReturnSnippet>
   return(
     <MsalProvider instance={ pca }>
       <ProvideAppContext>
@@ -45,4 +46,5 @@ export default function App({ pca }: AppProps) {
       </ProvideAppContext>
     </MsalProvider>
   );
+  // </ReturnSnippet>
 }
