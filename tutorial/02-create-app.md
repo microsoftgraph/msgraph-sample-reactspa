@@ -25,9 +25,8 @@ Before moving on, install some additional packages that you will use later:
 
 - [react-router-dom](https://github.com/ReactTraining/react-router) for declarative routing inside the React app.
 - [bootstrap](https://github.com/twbs/bootstrap) for styling and common components.
-- [reactstrap](https://github.com/reactstrap/reactstrap) for React components based on Bootstrap.
-- [fontawesome-free](https://github.com/FortAwesome/Font-Awesome) for icons.
-- [moment](https://github.com/moment/moment) for formatting dates and times.
+- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) for React components based on Bootstrap.
+- [date-fns](https://github.com/date-fns/date-fns) for formatting dates and times.
 - [windows-iana](https://github.com/rubenillodo/windows-iana) for translating Windows time zones to IANA format.
 - [msal-react](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-react) for authenticating to Azure Active Directory and retrieving access tokens.
 - [microsoft-graph-client](https://github.com/microsoftgraph/msgraph-sdk-javascript) for making calls to Microsoft Graph.
@@ -151,6 +150,8 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
       );
     }
     ```
+
+1. Add an image file of your choosing named **no-profile-photo.png** in the **./public/images** directory. This image will be used as the user's photo when the user has no photo in Microsoft Graph.
 
 1. Save all of your changes and restart the app. Now, the app should look very different.
 
