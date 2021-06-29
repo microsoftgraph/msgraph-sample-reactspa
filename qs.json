@@ -1,7 +1,7 @@
 {
-  "sourceDirectory": ".\\demo",
-  "exampleConfigFile": ".\\graph-tutorial\\src\\Config.example.ts",
+  "sourceDirectory": "./demo",
+  "exampleConfigFile": "./graph-tutorial/src/Config.example.ts",
   "configFile": "Config.ts",
   "archiveFile": "ReactQuickStart.zip",
-  "zipReadMe": ".\\README.md"
+  "zipReadMe": "./README.md"
 }
