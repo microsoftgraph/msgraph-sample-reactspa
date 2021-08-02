@@ -1422,10 +1422,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@microsoft/microsoft-graph-client@3.0.0-Preview.2":
-  version "3.0.0-Preview.2"
-  resolved "https://registry.yarnpkg.com/@microsoft/microsoft-graph-client/-/microsoft-graph-client-3.0.0-Preview.2.tgz#dcaad3be61cbaac68dd8107ecb2b6938a8db36be"
-  integrity sha512-WusaJzx4A056x9LzceEVqIIVhRHnhsVA5ZSxXEiZVrpwvAZsxxt2AF5cRgMbq2z2zlmnFGMynIGk7s2bQljI/A==
+"@microsoft/microsoft-graph-client@3.0.0-Preview.3":
+  version "3.0.0-Preview.3"
+  resolved "https://registry.yarnpkg.com/@microsoft/microsoft-graph-client/-/microsoft-graph-client-3.0.0-Preview.3.tgz#28cbbe319b9f27e9a2d3269c17fe7c8034eeed13"
+  integrity sha512-98zv4TTNfQgphJegkXKGywaJB6yC6vaZLis4OfjXaZRv6IW/mCQ7KGpk0t11qaR9xY2McMgCOBtXh0bzVYv2Vw==
   dependencies:
     "@babel/runtime" "^7.12.5"
     tslib "^2.2.0"

@@ -2,16 +2,17 @@
 // Licensed under the MIT License.
 
 // <GetUserSnippet>
-import { AuthProvider, Client, GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+import { Client, GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
 import { endOfWeek, startOfWeek } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { User, Event } from 'microsoft-graph';
 
 let graphClient: Client | undefined = undefined;
 
-function ensureClient(authProvider: AuthProvider) {
+function ensureClient(authProvider: AuthCodeMSALBrowserAuthenticationProvider) {
   if (!graphClient) {
-    graphClient = Client.init({
+    graphClient = Client.initWithMiddleware({
       authProvider: authProvider
     });
   }
@@ -19,7 +20,7 @@ function ensureClient(authProvider: AuthProvider) {
   return graphClient;
 }
 
-export async function getUser(authProvider: AuthProvider): Promise<User> {
+export async function getUser(authProvider: AuthCodeMSALBrowserAuthenticationProvider): Promise<User> {
   ensureClient(authProvider);
 
   // Return the /me API endpoint result as a User object
@@ -33,7 +34,7 @@ export async function getUser(authProvider: AuthProvider): Promise<User> {
 // </GetUserSnippet>
 
 // <GetUserWeekCalendarSnippet>
-export async function getUserWeekCalendar(authProvider: AuthProvider,
+export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
                                           timeZone: string): Promise<Event[]> {
   ensureClient(authProvider);
 
@@ -83,7 +84,7 @@ export async function getUserWeekCalendar(authProvider: AuthProvider,
 // </GetUserWeekCalendarSnippet>
 
 // <CreateEventSnippet>
-export async function createEvent(authProvider: AuthProvider,
+export async function createEvent(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
                                   newEvent: Event): Promise<Event> {
   ensureClient(authProvider);
 

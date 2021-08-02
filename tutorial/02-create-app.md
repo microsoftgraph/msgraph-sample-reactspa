@@ -54,7 +54,8 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
       useEffect} from 'react';
 
     import config from './Config';
-    import { AuthProvider, AuthProviderCallback } from '@microsoft/microsoft-graph-client';
+    import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
+    import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
     import { useMsal } from '@azure/msal-react';
     ```
 
@@ -77,9 +78,7 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
         setError(undefined);
       }
 
-      const authProvider = async (done: AuthProviderCallback) => {
-        // TODO
-      };
+      const authProvider = undefined;
 
       const signIn = async () => {
         // TODO
