@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-browser": "^2.14.2",
-    "@azure/msal-react": "^1.0.0",
-    "@microsoft/microsoft-graph-client": "3.0.0-Preview.3",
+    "@azure/msal-browser": "2.16.1",
+    "@azure/msal-react": "1.0.1",
+    "@microsoft/microsoft-graph-client": "3.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -14,10 +14,10 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "bootstrap": "^5.0.1",
-    "date-fns": "^2.22.1",
-    "date-fns-tz": "^1.1.4",
+    "date-fns": "2.23.0",
+    "date-fns-tz": "1.1.6",
     "react": "^17.0.2",
-    "react-bootstrap": "2.0.0-beta.0",
+    "react-bootstrap": "2.0.0-beta.4",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -50,7 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@types/microsoft-graph": "1.38.0",
-    "@types/react-router-dom": "5.1.7"
+    "@types/microsoft-graph": "^2.0.0",
+    "@types/react-router-dom": "5.1.8"
   }
 }

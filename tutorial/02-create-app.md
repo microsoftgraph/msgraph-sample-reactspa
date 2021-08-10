@@ -34,9 +34,9 @@ Before moving on, install some additional packages that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-yarn add react-router-dom@5.2.0 bootstrap@5.0.1 react-bootstrap@2.0.0-alpha.2 windows-iana@5.0.2
-yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/msal-react@1.0.0 @azure/msal-browser@2.14.2 @microsoft/microsoft-graph-client@3.0.0-Preview.2
-yarn add -D @types/react-router-dom@5.1.7 @types/microsoft-graph@1.38.0
+yarn add react-router-dom@5.2.0 bootstrap@5.0.1 react-bootstrap@2.0.0-beta.4 windows-iana@5.0.2
+yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/msal-react@1.0.1 @azure/msal-browser@2.16.1 @microsoft/microsoft-graph-client@3.0.0
+yarn add -D @types/react-router-dom@5.1.8 @types/microsoft-graph
 ```
 
 ## Design the app
