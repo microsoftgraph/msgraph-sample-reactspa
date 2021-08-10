@@ -27,7 +27,7 @@ export default function Calendar(props: RouteComponentProps) {
           const ianaTimeZones = findIana(app.user?.timeZone!);
           const events = await getUserWeekCalendar(app.authProvider!, ianaTimeZones[0].valueOf());
           setEvents(events);
-        } catch (err) {
+        } catch (err: any) {
           app.displayError!(err.message);
         }
       }
