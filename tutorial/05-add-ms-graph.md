@@ -4,9 +4,9 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
 ## Get calendar events from Outlook
 
-1. Open `./src/GraphService.ts` and add the following function.
+1. Open **./src/GraphService.ts** and add the following function.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="getUserWeekCalendarSnippet":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="GetUserWeekCalendarSnippet":::
 
     Consider what this code is doing.
 
@@ -18,77 +18,45 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     - The `top` method limits the results in a single page to 25 events.
     - If the response contains an `@odata.nextLink` value, indicating there are more results available, a `PageIterator` object is used to [page through the collection](https://docs.microsoft.com/graph/sdks/paging?tabs=typeScript) to get all of the results.
 
-1. Create a React component to display the results of the call. Create a new file in the `./src` directory named `Calendar.tsx` and add the following code.
+1. Create a React component to display the results of the call. Create a new file in the **./src** directory named **Calendar.tsx** and add the following code.
 
     ```typescript
-    import React from 'react';
-    import { NavLink as RouterNavLink } from 'react-router-dom';
-    import { Table } from 'reactstrap';
-    import moment, { Moment } from 'moment-timezone';
+    import { useEffect, useState } from 'react';
+    import { NavLink as RouterNavLink, RouteComponentProps } from 'react-router-dom';
+    import { Table } from 'react-bootstrap';
     import { findIana } from "windows-iana";
     import { Event } from 'microsoft-graph';
-    import { config } from './Config';
     import { getUserWeekCalendar } from './GraphService';
-    import withAuthProvider, { AuthComponentProps } from './AuthProvider';
+    import { useAppContext } from './AppContext';
+    import { AuthenticatedTemplate } from '@azure/msal-react';
 
-    interface CalendarState {
-      eventsLoaded: boolean;
-      events: Event[];
-      startOfWeek: Moment | undefined;
-    }
+    export default function Calendar(props: RouteComponentProps) {
+      const app = useAppContext();
 
-    class Calendar extends React.Component<AuthComponentProps, CalendarState> {
-      constructor(props: any) {
-        super(props);
+      const [events, setEvents] = useState<Event[]>();
 
-        this.state = {
-          eventsLoaded: false,
-          events: [],
-          startOfWeek: undefined
+      useEffect(() => {
+        const loadEvents = async() => {
+          if (app.user && !events) {
+            try {
+              const ianaTimeZones = findIana(app.user?.timeZone!);
+              const events = await getUserWeekCalendar(app.authProvider!, ianaTimeZones[0].valueOf());
+              setEvents(events);
+            } catch (err) {
+              app.displayError!(err.message);
+            }
+          }
         };
-      }
 
-      async componentDidUpdate() {
-        if (this.props.user && !this.state.eventsLoaded)
-        {
-          try {
-            // Get the user's access token
-            var accessToken = await this.props.getAccessToken(config.scopes);
+        loadEvents();
+      });
 
-            // Convert user's Windows time zone ("Pacific Standard Time")
-            // to IANA format ("America/Los_Angeles")
-            // Moment needs IANA format
-            var ianaTimeZones = findIana(this.props.user.timeZone);
-
-            // Get midnight on the start of the current week in the user's timezone,
-            // but in UTC. For example, for Pacific Standard Time, the time value would be
-            // 07:00:00Z
-            var startOfWeek = moment.tz(ianaTimeZones![0].valueOf()).startOf('week').utc();
-
-            // Get the user's events
-            var events = await getUserWeekCalendar(accessToken, this.props.user.timeZone, startOfWeek);
-
-            // Update the array of events in state
-            this.setState({
-              eventsLoaded: true,
-              events: events,
-              startOfWeek: startOfWeek
-            });
-          }
-          catch (err) {
-            this.props.setError('ERROR', JSON.stringify(err));
-          }
-        }
-      }
-
-      render() {
-        return (
-          <pre><code>{JSON.stringify(this.state.events, null, 2)}</code></pre>
-        );
-      }
+      return (
+        <AuthenticatedTemplate>
+          <pre><code>{JSON.stringify(events, null, 2)}</code></pre>
+        </AuthenticatedTemplate>
+      );
     }
-
-    export default withAuthProvider(Calendar);
     ```
 
     For now this just renders the array of events in JSON on the page.
@@ -104,9 +72,7 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     ```typescript
     <Route exact path="/calendar"
       render={(props) =>
-        this.props.isAuthenticated ?
-          <Calendar {...props} /> :
-          <Redirect to="/" />
+        <Calendar {...props} />
       } />
     ```
 
@@ -131,9 +97,9 @@ Now you can update the `Calendar` component to display the events in a more user
     import './Calendar.css';
     ```
 
-1. Replace the existing `render` function in `./src/Calendar.tsx` with the following function.
+1. Replace the existing `return` statement with the following code.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/Calendar.tsx" id="renderSnippet":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/Calendar.tsx" id="ReturnSnippet":::
 
     This splits the events into their respective days and renders a table section for each day.
 

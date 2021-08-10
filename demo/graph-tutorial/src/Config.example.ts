@@ -1,4 +1,4 @@
-export const config = {
+const config = {
   appId: 'YOUR_APP_ID_HERE',
   redirectUri: 'http://localhost:3000',
   scopes: [
@@ -7,3 +7,5 @@ export const config = {
     'calendars.readwrite'
   ]
 };
+
+export default config;

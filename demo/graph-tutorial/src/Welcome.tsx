@@ -2,51 +2,35 @@
 // Licensed under the MIT License.
 
 // <WelcomeSnippet>
-import React from 'react';
 import {
   Button,
-  Jumbotron
-} from 'reactstrap';
+  Container
+} from 'react-bootstrap';
+import { RouteComponentProps } from 'react-router-dom';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+import { useAppContext } from './AppContext';
 
-interface WelcomeProps {
-  isAuthenticated: boolean;
-  authButtonMethod: any;
-  user: any;
-}
+export default function Welcome(props: RouteComponentProps) {
+  const app = useAppContext();
 
-interface WelcomeState {
-  isOpen: boolean;
-}
-
-function WelcomeContent(props: WelcomeProps) {
-  // If authenticated, greet the user
-  if (props.isAuthenticated) {
-    return (
-      <div>
-        <h4>Welcome {props.user.displayName}!</h4>
-        <p>Use the navigation bar at the top of the page to get started.</p>
-      </div>
-    );
-  }
-
-  // Not authenticated, present a sign in button
-  return <Button color="primary" onClick={props.authButtonMethod}>Click here to sign in</Button>;
-}
-
-export default class Welcome extends React.Component<WelcomeProps, WelcomeState> {
-  render() {
-    return (
-      <Jumbotron>
+  return (
+    <div className="p-5 mb-4 bg-light rounded-3">
+      <Container fluid>
         <h1>React Graph Tutorial</h1>
         <p className="lead">
-          This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from React
+          This sample app shows how to use the Microsoft Graph API to access a user's data from React
         </p>
-        <WelcomeContent
-          isAuthenticated={this.props.isAuthenticated}
-          user={this.props.user}
-          authButtonMethod={this.props.authButtonMethod} />
-      </Jumbotron>
-    );
-  }
+        <AuthenticatedTemplate>
+          <div>
+            <h4>Welcome {app.user?.displayName || ''}!</h4>
+            <p>Use the navigation bar at the top of the page to get started.</p>
+          </div>
+        </AuthenticatedTemplate>
+        <UnauthenticatedTemplate>
+          <Button color="primary" onClick={app.signIn!}>Click here to sign in</Button>
+        </UnauthenticatedTemplate>
+      </Container>
+    </div>
+  );
 }
 // </WelcomeSnippet>

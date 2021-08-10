@@ -1,60 +1,50 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { Container } from 'reactstrap';
-import withAuthProvider, { AuthComponentProps } from './AuthProvider';
-import NavBar from './NavBar';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import { MsalProvider } from '@azure/msal-react'
+import { IPublicClientApplication } from '@azure/msal-browser';
+
+import ProvideAppContext from './AppContext';
 import ErrorMessage from './ErrorMessage';
+import NavBar from './NavBar';
 import Welcome from './Welcome';
 import Calendar from './Calendar';
 import NewEvent from './NewEvent';
 import 'bootstrap/dist/css/bootstrap.css';
 
-class App extends Component<AuthComponentProps> {
-  render() {
-    let error = null;
-    if (this.props.error) {
-      error = <ErrorMessage
-        message={this.props.error.message}
-        debug={this.props.error.debug} />;
-    }
+// <AppPropsSnippet>
+type AppProps= {
+  pca: IPublicClientApplication
+};
+// </AppPropsSnippet>
 
-    // <renderSnippet>
-    return (
-      <Router>
-        <div>
-          <NavBar
-            isAuthenticated={this.props.isAuthenticated}
-            authButtonMethod={this.props.isAuthenticated ? this.props.logout : this.props.login}
-            user={this.props.user} />
+export default function App({ pca }: AppProps) {
+  // <ReturnSnippet>
+  return(
+    <MsalProvider instance={ pca }>
+      <ProvideAppContext>
+        <Router>
+          <NavBar />
           <Container>
-            {error}
+            <ErrorMessage />
             <Route exact path="/"
               render={(props) =>
-                <Welcome {...props}
-                  isAuthenticated={this.props.isAuthenticated}
-                  user={this.props.user}
-                  authButtonMethod={this.props.login} />
+                <Welcome {...props} />
               } />
             <Route exact path="/calendar"
               render={(props) =>
-                this.props.isAuthenticated ?
-                  <Calendar {...props} /> :
-                  <Redirect to="/" />
+                <Calendar {...props} />
               } />
             <Route exact path="/newevent"
               render={(props) =>
-                this.props.isAuthenticated ?
-                  <NewEvent {...props} /> :
-                  <Redirect to="/" />
+                <NewEvent {...props} />
               } />
           </Container>
-        </div>
-      </Router>
-    );
-    // </renderSnippet>
-  }
+        </Router>
+      </ProvideAppContext>
+    </MsalProvider>
+  );
+  // </ReturnSnippet>
 }
-
-export default withAuthProvider(App);

@@ -2,7 +2,7 @@
 
 In this exercise you will extend the application from the previous exercise to support authentication with Azure AD. This is required to obtain the necessary OAuth access token to call the Microsoft Graph. In this step you will integrate the [Microsoft Authentication Library](https://github.com/AzureAD/microsoft-authentication-library-for-js) library into the application.
 
-1. Create a new file in the `./src` directory named `Config.ts` and add the following code.
+1. Create a new file in the **./src** directory named **Config.ts** and add the following code.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/Config.example.ts":::
 
@@ -13,237 +13,104 @@ In this exercise you will extend the application from the previous exercise to s
 
 ## Implement sign-in
 
-In this section you'll create an authentication provider and implement sign-in and sign-out.
+In this section you'll implement an authentication provider, sign-in, and sign-out.
 
-1. Create a new file in the `./src` directory named `AuthProvider.tsx` and add the following code.
+1. Open **./src/index.tsx** and add the following `import` statements at the top of the file.
 
     ```typescript
-    import React from 'react';
-    import { PublicClientApplication } from '@azure/msal-browser';
+    import {
+      PublicClientApplication,
+      EventType,
+      EventMessage,
+      AuthenticationResult } from '@azure/msal-browser';
 
-    import { config } from './Config';
+    import config from './Config';
+    ```
 
-    export interface AuthComponentProps {
-      error: any;
-      isAuthenticated: boolean;
-      user: any;
-      login: Function;
-      logout: Function;
-      getAccessToken: Function;
-      setError: Function;
-    }
+1. Add the following code before the `ReactDOM.render` line.
 
-    interface AuthProviderState {
-      error: any;
-      isAuthenticated: boolean;
-      user: any;
-    }
+    :::code language="typescript" source="../demo/graph-tutorial/src/index.tsx" id="MsalInstanceSnippet":::
 
-    export default function withAuthProvider<T extends React.Component<AuthComponentProps>>
-      (WrappedComponent: new (props: AuthComponentProps, context?: any) => T): React.ComponentClass {
-      return class extends React.Component<any, AuthProviderState> {
-        private publicClientApplication: PublicClientApplication;
+    This code creates an instance of the MSAL library's `PublicClientApplication` object, checks for any cached accounts, and registers a callback to set the active account after a successful login.
 
-        constructor(props: any) {
-          super(props);
-          this.state = {
-            error: null,
-            isAuthenticated: false,
-            user: {}
-          };
+1. Update the `App` element in the `ReactDOM.render` call to pass the `msalInstance` in a property named `pca`.
 
-          // Initialize the MSAL application object
-          this.publicClientApplication = new PublicClientApplication({
-            auth: {
-              clientId: config.appId,
-              redirectUri: config.redirectUri
-            },
-            cache: {
-              cacheLocation: "sessionStorage",
-              storeAuthStateInCookie: true
-            }
-          });
-        }
+    :::code language="typescript" source="../demo/graph-tutorial/src/index.tsx" id="RenderSnippet" highlight="3":::
 
-        componentDidMount() {
-          // If MSAL already has an account, the user
-          // is already logged in
-          const accounts = this.publicClientApplication.getAllAccounts();
+1. Open **./src/App.tsx** and add the following code after the last `import` statement.
 
-          if (accounts && accounts.length > 0) {
-            // Enhance user object with data from Graph
-            this.getUserProfile();
-          }
-        }
+    :::code language="typescript" source="../demo/graph-tutorial/src/App.tsx" id="AppPropsSnippet":::
 
-        render() {
-          return <WrappedComponent
-            error={ this.state.error }
-            isAuthenticated={ this.state.isAuthenticated }
-            user={ this.state.user }
-            login={ () => this.login() }
-            logout={ () => this.logout() }
-            getAccessToken={ (scopes: string[]) => this.getAccessToken(scopes) }
-            setError={ (message: string, debug: string) => this.setErrorMessage(message, debug) }
-            { ...this.props } />;
-        }
+1. Replace the existing `App` function with the following.
 
-        async login() {
-          try {
-            // Login via popup
-            await this.publicClientApplication.loginPopup(
-              {
-                scopes: config.scopes,
-                prompt: "select_account"
-              });
-
-            // After login, get the user's profile
-            await this.getUserProfile();
-          }
-          catch (err) {
-            this.setState({
-              isAuthenticated: false,
-              user: {},
-              error: this.normalizeError(err)
-            });
-          }
-        }
-
-        logout() {
-          this.publicClientApplication.logout();
-        }
-
-        async getAccessToken(scopes: string[]): Promise<string> {
-          try {
-            const accounts = this.publicClientApplication
-              .getAllAccounts();
-
-            if (accounts.length <= 0) throw new Error('login_required');
-            // Get the access token silently
-            // If the cache contains a non-expired token, this function
-            // will just return the cached token. Otherwise, it will
-            // make a request to the Azure OAuth endpoint to get a token
-            var silentResult = await this.publicClientApplication
-              .acquireTokenSilent({
-                scopes: scopes,
-                account: accounts[0]
-              });
-
-            return silentResult.accessToken;
-          } catch (err) {
-            // If a silent request fails, it may be because the user needs
-            // to login or grant consent to one or more of the requested scopes
-            if (this.isInteractionRequired(err)) {
-              var interactiveResult = await this.publicClientApplication
-                .acquireTokenPopup({
-                  scopes: scopes
-                });
-
-              return interactiveResult.accessToken;
-            } else {
-              throw err;
-            }
-          }
-        }
-
-        async getUserProfile() {
-          try {
-            var accessToken = await this.getAccessToken(config.scopes);
-
-            if (accessToken) {
-              // TEMPORARY: Display the token in the error flash
-              this.setState({
-                isAuthenticated: true,
-                error: { message: "Access token:", debug: accessToken }
-              });
-            }
-          }
-          catch(err) {
-            this.setState({
-              isAuthenticated: false,
-              user: {},
-              error: this.normalizeError(err)
-            });
-          }
-        }
-
-        setErrorMessage(message: string, debug: string) {
-          this.setState({
-            error: { message: message, debug: debug }
-          });
-        }
-
-        normalizeError(error: string | Error): any {
-          var normalizedError = {};
-          if (typeof (error) === 'string') {
-            var errParts = error.split('|');
-            normalizedError = errParts.length > 1 ?
-              { message: errParts[1], debug: errParts[0] } :
-              { message: error };
-          } else {
-            normalizedError = {
-              message: error.message,
-              debug: JSON.stringify(error)
-            };
-          }
-          return normalizedError;
-        }
-
-        isInteractionRequired(error: Error): boolean {
-          if (!error.message || error.message.length <= 0) {
-            return false;
-          }
-
-          return (
-            error.message.indexOf('consent_required') > -1 ||
-            error.message.indexOf('interaction_required') > -1 ||
-            error.message.indexOf('login_required') > -1 ||
-            error.message.indexOf('no_account_in_silent_request') > -1
-          );
-        }
-      }
+    ```typescript
+    export default function App({ pca }: AppProps) {
+      return(
+        <MsalProvider instance={ pca }>
+          <ProvideAppContext>
+            <Router>
+              <div>
+                <NavBar />
+                <Container>
+                  <ErrorMessage />
+                  <Route exact path="/"
+                    render={(props) =>
+                      <Welcome {...props} />
+                    } />
+                </Container>
+              </div>
+            </Router>
+          </ProvideAppContext>
+        </MsalProvider>
+      );
     }
     ```
 
-1. Open `./src/App.tsx` and add the following `import` statement to the top of the file.
+    This wraps all of the other elements with the `MsalProvider` element, making authentication state and token acquisition available.
+
+1. Open **./src/AppContext.tsx** and add the following line at the top of the `useProvideAppContext` function.
 
     ```typescript
-    import withAuthProvider, { AuthComponentProps } from './AuthProvider';
+    const msal = useMsal();
     ```
 
-1. Replace the line `class App extends Component<any> {` with the following.
+1. Replace the existing `signIn` function with the following.
 
     ```typescript
-    class App extends Component<AuthComponentProps> {
-    ```
+    const signIn = async () => {
+      const result = await msal.instance.loginPopup({
+        scopes: config.scopes,
+        prompt: 'select_account'
+      });
 
-1. Replace the line `export default App;` with the following.
-
-    ```typescript
-    export default withAuthProvider(App);
+      // TEMPORARY: Show the access token
+      displayError('Access token retrieved', result.accessToken);
+    };
     ```
 
 1. Save your changes and refresh the browser. Click the sign-in button and you should see a pop-up window that loads `https://login.microsoftonline.com`. Login with your Microsoft account and consent to the requested permissions. The app page should refresh, showing the token.
 
 ### Get user details
 
-In this section you will get the user's details from Microsoft Graph.
+In this section you will modify the `signIn` function to get the user's details from Microsoft Graph.
 
-1. Create a new file in the `./src` directory called `GraphService.ts` and add the following code.
+1. Create a new file in the **./src** directory named **GraphService.ts** and add the following code.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="graphServiceSnippet1":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="GetUserSnippet":::
 
-    This implements the `getUserDetails` function, which uses the Microsoft Graph SDK to call the `/me` endpoint and return the result.
+    This implements the `getUser` function, which initializes the Microsoft Graph client with the provided `AuthProvider`, and gets the user's profile.
 
-1. Open `./src/AuthProvider.tsx` and add the following `import` statement to the top of the file.
+1. Open **./src/AppContext.tsx** and replace the existing `signIn` function with the following code.
 
-    ```typescript
-    import { getUserDetails } from './GraphService';
-    ```
+    :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="SignInSnippet":::
 
-1. Replace the existing `getUserProfile` function with the following code.
+1. Replace the existing `signOut` function with the following.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/AuthProvider.tsx" id="getUserProfileSnippet" highlight="6-18":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="SignOutSnippet":::
+
+1. Add the following `useEffect` call inside `useProvideAppContext`.
+
+    :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="UseEffectSnippet":::
 
 1. Save your changes and start the app, after sign-in you should end up back on the home page, but the UI should change to indicate that you are signed-in.
 
