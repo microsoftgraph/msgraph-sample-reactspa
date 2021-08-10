@@ -1,52 +1,54 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// <graphServiceSnippet1>
-import moment, { Moment } from 'moment';
-import { Event } from 'microsoft-graph';
-import { GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+// <GetUserSnippet>
+import { Client, GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
+import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
+import { endOfWeek, startOfWeek } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
+import { User, Event } from 'microsoft-graph';
 
-var graph = require('@microsoft/microsoft-graph-client');
+let graphClient: Client | undefined = undefined;
 
-function getAuthenticatedClient(accessToken: string) {
-  // Initialize Graph client
-  const client = graph.Client.init({
-    // Use the provided access token to authenticate
-    // requests
-    authProvider: (done: any) => {
-      done(null, accessToken);
-    }
-  });
+function ensureClient(authProvider: AuthCodeMSALBrowserAuthenticationProvider) {
+  if (!graphClient) {
+    graphClient = Client.initWithMiddleware({
+      authProvider: authProvider
+    });
+  }
 
-  return client;
+  return graphClient;
 }
 
-export async function getUserDetails(accessToken: string) {
-  const client = getAuthenticatedClient(accessToken);
+export async function getUser(authProvider: AuthCodeMSALBrowserAuthenticationProvider): Promise<User> {
+  ensureClient(authProvider);
 
-  const user = await client
-    .api('/me')
+  // Return the /me API endpoint result as a User object
+  const user: User = await graphClient!.api('/me')
+    // Only retrieve the specific fields needed
     .select('displayName,mail,mailboxSettings,userPrincipalName')
     .get();
 
   return user;
 }
-// </graphServiceSnippet1>
+// </GetUserSnippet>
 
-// <getUserWeekCalendarSnippet>
-export async function getUserWeekCalendar(accessToken: string, timeZone: string, startDate: Moment): Promise<Event[]> {
-  const client = getAuthenticatedClient(accessToken);
+// <GetUserWeekCalendarSnippet>
+export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
+                                          timeZone: string): Promise<Event[]> {
+  ensureClient(authProvider);
 
   // Generate startDateTime and endDateTime query params
   // to display a 7-day window
-  var startDateTime = startDate.format();
-  var endDateTime = moment(startDate).add(7, 'day').format();
+  const now = new Date();
+  const startDateTime = zonedTimeToUtc(startOfWeek(now), timeZone).toISOString();
+  const endDateTime = zonedTimeToUtc(endOfWeek(now), timeZone).toISOString();
 
   // GET /me/calendarview?startDateTime=''&endDateTime=''
   // &$select=subject,organizer,start,end
   // &$orderby=start/dateTime
   // &$top=50
-  var response: PageCollection = await client
+  var response: PageCollection = await graphClient!
     .api('/me/calendarview')
     .header('Prefer', `outlook.timezone="${timeZone}"`)
     .query({ startDateTime: startDateTime, endDateTime: endDateTime })
@@ -66,7 +68,7 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
       headers: { 'Prefer': `outlook.timezone="${timeZone}"` }
     };
 
-    var pageIterator = new PageIterator(client, response, (event) => {
+    var pageIterator = new PageIterator(graphClient!, response, (event) => {
       events.push(event);
       return true;
     }, options);
@@ -79,17 +81,18 @@ export async function getUserWeekCalendar(accessToken: string, timeZone: string,
     return response.value;
   }
 }
-// </getUserWeekCalendarSnippet>
+// </GetUserWeekCalendarSnippet>
 
-// <createEventSnippet>
-export async function createEvent(accessToken: string, newEvent: Event): Promise<Event> {
-  const client = getAuthenticatedClient(accessToken);
+// <CreateEventSnippet>
+export async function createEvent(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
+                                  newEvent: Event): Promise<Event> {
+  ensureClient(authProvider);
 
   // POST /me/events
   // JSON representation of the new event is sent in the
   // request body
-  return await client
+  return await graphClient!
     .api('/me/events')
     .post(newEvent);
 }
-// </createEventSnippet>
+// </CreateEventSnippet>

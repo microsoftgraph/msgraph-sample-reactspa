@@ -6,7 +6,7 @@ In this section you will add the ability to create events on the user's calendar
 
 1. Open **./src/GraphService.ts** and add the following function to create a new event.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="createEventSnippet":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/GraphService.ts" id="CreateEventSnippet":::
 
 ## Create new event form
 
@@ -25,15 +25,13 @@ In this section you will add the ability to create events on the user's calendar
     ```typescript
     <Route exact path="/newevent"
       render={(props) =>
-        this.props.isAuthenticated ?
-          <NewEvent {...props} /> :
-          <Redirect to="/" />
+        <NewEvent {...props} /> :
       } />
     ```
 
     The full `return` statement should now look like this.
 
-    :::code language="typescript" source="../demo/graph-tutorial/src/App.tsx" id="renderSnippet" highlight="23-28":::
+    :::code language="typescript" source="../demo/graph-tutorial/src/App.tsx" id="ReturnSnippet" highlight="16-19":::
 
 1. Refresh the app and browse to the calendar view. Click the **New event** button. Fill in the fields and click **Create**.
 

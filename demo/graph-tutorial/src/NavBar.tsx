@@ -2,137 +2,75 @@
 // Licensed under the MIT License.
 
 // <NavBarSnippet>
-import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import {
-  Button,
-  Collapse,
   Container,
+  Dropdown,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from 'reactstrap';
-import '@fortawesome/fontawesome-free/css/all.css';
+  NavDropdown,
+  NavItem
+} from 'react-bootstrap';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 
-interface NavBarProps {
-  isAuthenticated: boolean;
-  authButtonMethod: any;
-  user: any;
-}
+import { AppUser, useAppContext } from './AppContext';
 
-interface NavBarState {
-  isOpen: boolean;
-}
+interface UserAvatarProps {
+  user: AppUser
+};
 
-function UserAvatar(props: any) {
+function UserAvatar(props: UserAvatarProps) {
   // If a user avatar is available, return an img tag with the pic
-  if (props.user.avatar) {
-    return <img
-      src={props.user.avatar} alt="user"
+  return <img
+      src={props.user.avatar || '/images/no-profile-photo.png'} alt="user"
       className="rounded-circle align-self-center mr-2"
       style={{ width: '32px' }}></img>;
-  }
-
-  // No avatar available, return a default icon
-  return <i
-    className="far fa-user-circle fa-lg rounded-circle align-self-center mr-2"
-    style={{ width: '32px' }}></i>;
 }
 
-function AuthNavItem(props: NavBarProps) {
-  // If authenticated, return a dropdown with the user's info and a
-  // sign out button
-  if (props.isAuthenticated) {
-    return (
-      <UncontrolledDropdown>
-        <DropdownToggle nav caret>
-          <UserAvatar user={props.user} />
-        </DropdownToggle>
-        <DropdownMenu right>
-          <h5 className="dropdown-item-text mb-0">{props.user.displayName}</h5>
-          <p className="dropdown-item-text text-muted mb-0">{props.user.email}</p>
-          <DropdownItem divider />
-          <DropdownItem onClick={props.authButtonMethod}>Sign Out</DropdownItem>
-        </DropdownMenu>
-      </UncontrolledDropdown>
-    );
-  }
+export default function NavBar() {
+  const app = useAppContext();
+  const user = app.user || { displayName: '', email: '' };
 
-  // Not authenticated, return a sign in link
   return (
-    <NavItem>
-      <Button
-        onClick={props.authButtonMethod}
-        className="btn-link nav-link border-0"
-        color="link">Sign In</Button>
-    </NavItem>
+      <Navbar bg="dark" variant="dark" expand="md" fixed="top">
+        <Container>
+          <Navbar.Brand href="/">React Graph Tutorial</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse>
+            <Nav className="me-auto" navbar>
+              <NavItem>
+                <RouterNavLink to="/" className="nav-link" exact>Home</RouterNavLink>
+              </NavItem>
+              <AuthenticatedTemplate>
+                <NavItem>
+                  <RouterNavLink to="/calendar" className="nav-link" exact>Calendar</RouterNavLink>
+                </NavItem>
+              </AuthenticatedTemplate>
+            </Nav>
+            <Nav className="ms-auto align-items-center" navbar>
+              <NavItem>
+                <Nav.Link href="https://developer.microsoft.com/graph/docs/concepts/overview" target="_blank">
+                  Docs
+                </Nav.Link>
+              </NavItem>
+              <AuthenticatedTemplate>
+                <NavDropdown title={<UserAvatar user={user} />} id="user-dropdown" align="end">
+                  <h5 className="dropdown-item-text mb-0">{user.displayName}</h5>
+                  <p className="dropdown-item-text text-muted mb-0">{user.email}</p>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={app.signOut!}>Sign Out</Dropdown.Item>
+                </NavDropdown>
+              </AuthenticatedTemplate>
+              <UnauthenticatedTemplate>
+                <NavItem>
+                  <Nav.Link
+                    onClick={app.signIn!}>Sign In</Nav.Link>
+                </NavItem>
+              </UnauthenticatedTemplate>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
   );
-}
-
-export default class NavBar extends React.Component<NavBarProps, NavBarState> {
-  constructor(props: NavBarProps) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  render() {
-    // Only show calendar nav item if logged in
-    let calendarLink = null;
-    if (this.props.isAuthenticated) {
-      calendarLink = (
-        <NavItem>
-          <RouterNavLink to="/calendar" className="nav-link" exact>Calendar</RouterNavLink>
-        </NavItem>
-      );
-    }
-
-    return (
-      <div>
-        <Navbar color="dark" dark expand="md" fixed="top">
-          <Container>
-            <NavbarBrand href="/">React Graph Tutorial</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="mr-auto" navbar>
-                <NavItem>
-                  <RouterNavLink to="/" className="nav-link" exact>Home</RouterNavLink>
-                </NavItem>
-                {calendarLink}
-              </Nav>
-              <Nav className="justify-content-end" navbar>
-                <NavItem>
-                  <NavLink href="https://developer.microsoft.com/graph/docs/concepts/overview" target="_blank">
-                    <i className="fas fa-external-link-alt mr-1"></i>
-                    Docs
-                  </NavLink>
-                </NavItem>
-                <AuthNavItem
-                  isAuthenticated={this.props.isAuthenticated}
-                  authButtonMethod={this.props.authButtonMethod}
-                  user={this.props.user} />
-              </Nav>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </div>
-    );
-  }
 }
 // </NavBarSnippet>
