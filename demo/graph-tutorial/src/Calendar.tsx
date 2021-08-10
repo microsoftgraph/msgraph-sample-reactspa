@@ -91,5 +91,5 @@ export default function Calendar(props: RouteComponentProps) {
       </div>
     </AuthenticatedTemplate>
   );
-  // <ReturnSnippet>
+  // </ReturnSnippet>
 }
