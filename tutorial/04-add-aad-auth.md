@@ -68,11 +68,21 @@ In this section you'll implement an authentication provider, sign-in, and sign-o
 
     This wraps all of the other elements with the `MsalProvider` element, making authentication state and token acquisition available.
 
-1. Open **./src/AppContext.tsx** and add the following line at the top of the `useProvideAppContext` function.
+1. Open **./src/AppContext.tsx** and add the following `import` statement at the top of the file.
+
+    ```typescript
+    import config from './Config';
+    ```
+
+1. Add the following line at the top of the `useProvideAppContext` function.
 
     ```typescript
     const msal = useMsal();
     ```
+
+1. Replace the `const authProvider = undefined;` line with the following.
+
+    :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="AuthProviderSnippet":::
 
 1. Replace the existing `signIn` function with the following.
 
@@ -100,7 +110,13 @@ In this section you will modify the `signIn` function to get the user's details 
 
     This implements the `getUser` function, which initializes the Microsoft Graph client with the provided `AuthProvider`, and gets the user's profile.
 
-1. Open **./src/AppContext.tsx** and replace the existing `signIn` function with the following code.
+1. Open **./src/AppContext.tsx** and add the following `import` statement at the top of the file.
+
+    ```typescript
+    import { getUser } from './GraphService';
+    ```
+
+1. Replace the existing `signIn` function with the following code.
 
     :::code language="typescript" source="../demo/graph-tutorial/src/AppContext.tsx" id="SignInSnippet":::
 
