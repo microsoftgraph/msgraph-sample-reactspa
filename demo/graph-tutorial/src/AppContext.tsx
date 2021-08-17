@@ -81,6 +81,7 @@ function useProvideAppContext() {
     setError(undefined);
   }
 
+  // <AuthProviderSnippet>
   // Used by the Graph SDK to authenticate API calls
   const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
     msal.instance as PublicClientApplication,
@@ -90,6 +91,7 @@ function useProvideAppContext() {
       interactionType: InteractionType.Popup
     }
   );
+  // </AuthProviderSnippet>
 
   // <UseEffectSnippet>
   useEffect(() => {
@@ -109,7 +111,7 @@ function useProvideAppContext() {
               timeZone: user.mailboxSettings?.timeZone || 'UTC'
             });
           }
-        } catch (err) {
+        } catch (err: any) {
           displayError(err.message);
         }
       }

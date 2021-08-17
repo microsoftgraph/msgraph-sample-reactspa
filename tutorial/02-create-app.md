@@ -53,7 +53,6 @@ Start by creating a [context](https://reactjs.org/docs/context.html) for the app
       MouseEventHandler,
       useEffect} from 'react';
 
-    import config from './Config';
     import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
     import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
     import { useMsal } from '@azure/msal-react';
