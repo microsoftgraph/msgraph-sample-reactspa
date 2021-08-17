@@ -25,7 +25,7 @@ In this section you will add the ability to create events on the user's calendar
     ```typescript
     <Route exact path="/newevent"
       render={(props) =>
-        <NewEvent {...props} /> :
+        <NewEvent {...props} /> 
       } />
     ```
 
