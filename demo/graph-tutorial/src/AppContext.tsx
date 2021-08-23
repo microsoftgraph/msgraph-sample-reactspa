@@ -107,7 +107,7 @@ function useProvideAppContext() {
             setUser({
               displayName: user.displayName || '',
               email: user.mail || user.userPrincipalName || '',
-              timeFormat: user.mailboxSettings?.timeFormat || '',
+              timeFormat: user.mailboxSettings?.timeFormat || 'h:mm a',
               timeZone: user.mailboxSettings?.timeZone || 'UTC'
             });
           }

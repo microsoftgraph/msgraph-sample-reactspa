@@ -29,6 +29,8 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
     import { getUserWeekCalendar } from './GraphService';
     import { useAppContext } from './AppContext';
     import { AuthenticatedTemplate } from '@azure/msal-react';
+    import { add, format, getDay, parseISO } from 'date-fns';
+    import { endOfWeek, startOfWeek } from 'date-fns/esm';
 
     export default function Calendar(props: RouteComponentProps) {
       const app = useAppContext();

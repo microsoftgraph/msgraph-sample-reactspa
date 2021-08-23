@@ -7,13 +7,13 @@ import { Table } from 'react-bootstrap';
 import { findIana } from 'windows-iana';
 import { Event } from 'microsoft-graph';
 import { AuthenticatedTemplate } from '@azure/msal-react';
+import { add, format, getDay, parseISO } from 'date-fns';
+import { endOfWeek, startOfWeek } from 'date-fns/esm';
 
 import { getUserWeekCalendar } from './GraphService';
 import { useAppContext } from './AppContext';
 import CalendarDayRow from './CalendarDayRow';
 import './Calendar.css';
-import { add, format, getDay, parseISO } from 'date-fns';
-import { endOfWeek, startOfWeek } from 'date-fns/esm';
 
 export default function Calendar(props: RouteComponentProps) {
   const app = useAppContext();
