@@ -52,5 +52,13 @@
   "devDependencies": {
     "@types/microsoft-graph": "^2.0.0",
     "@types/react-router-dom": "5.1.8"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!date-fns)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/src/__mocks__/mockCss.js"
+    }
   }
 }
