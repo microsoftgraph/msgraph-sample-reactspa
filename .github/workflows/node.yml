@@ -2,9 +2,14 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - demo/graph-tutorial/**
   pull_request:
-    branches: [ main, release ]
+    branches: 
+      - main
+      - live
 
 jobs:
   build:
@@ -17,6 +22,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Copy settings file
+      run: |
+        cp ./src/Config.example.ts ./src/Config.ts
     - name: Verify npm all runs and build output matches
       uses: actions/setup-node@v3
       with:
