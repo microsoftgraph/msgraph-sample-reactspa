@@ -15,19 +15,25 @@ You should also have either a personal Microsoft account with a mailbox on Outlo
 
 The code for this sample is in the [demo](demo) folder. Instructions to configure and run the sample can be found in the [README](demo/README.md) in that folder.
 
-## Version history
+## Add Node packages
 
-| Version |       Date       |              Comments              |
-| ------- | ---------------- | ---------------------------------- |
-| 1.8     | March 19, 2020   | Refresh tutorial                   |
-| 1.7     | December 3, 2019 | Update to latest Graph SDK and `create-react-app` |
-| 1.6     | June 18, 2019    | Added link to screencast recording |
-| 1.5     | May 24, 2019     | 2019Q4 content refresh             |
-| 1.4     | May 22, 2019     | Quickstart updates                 |
-| 1.3     | May 16, 2019     | Updated AAD app registration steps |
-| 1.2     | March 6, 2019    | 2019Q3 content refresh             |
-| 1.1     | February 8, 2019 | Added slides                       |
-| 1.0     | 2018             | Published                          |
+Before moving on, install some additional packages that you will use later:
+
+- [react-router-dom](https://github.com/ReactTraining/react-router) for declarative routing inside the React app.
+- [bootstrap](https://github.com/twbs/bootstrap) for styling and common components.
+- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) for React components based on Bootstrap.
+- [date-fns](https://github.com/date-fns/date-fns) for formatting dates and times.
+- [windows-iana](https://github.com/rubenillodo/windows-iana) for translating Windows time zones to IANA format.
+- [msal-react](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-react) for authenticating to Azure Active Directory and retrieving access tokens.
+- [microsoft-graph-client](https://github.com/microsoftgraph/msgraph-sdk-javascript) for making calls to Microsoft Graph.
+
+Run the following command in your CLI.
+
+```Shell
+yarn add react-router-dom@5.2.0 bootstrap@5.0.1 react-bootstrap@2.0.0-beta.4 windows-iana@5.0.2
+yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/msal-react@1.0.1 @azure/msal-browser@2.16.1 @microsoft/microsoft-graph-client@3.0.0
+yarn add -D @types/react-router-dom@5.1.8 @types/microsoft-graph
+```
 
 ## Code of conduct
 
