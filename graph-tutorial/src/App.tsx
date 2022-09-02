@@ -11,15 +11,16 @@ import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
 import Welcome from './Welcome';
 import 'bootstrap/dist/css/bootstrap.css';
-/*
+
 // <AppPropsSnippet>
 type AppProps= {
   pca: IPublicClientApplication
 };
 // </AppPropsSnippet>
-*/
-export default function App() { //{ pca }: AppProps
+
+export default function App({ pca }: AppProps): JSX.Element { //{ pca }: AppProps
   return(
+    <MsalProvider instance={ pca }>
     <ProvideAppContext>
       <Router>
         <NavBar />
@@ -34,6 +35,7 @@ export default function App() { //{ pca }: AppProps
         </Container>
       </Router>
     </ProvideAppContext>
+    </MsalProvider>
   );
 }
 

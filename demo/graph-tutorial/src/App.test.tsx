@@ -19,4 +19,4 @@ test('renders welcome page', () => {
   const titleElement = screen.getByRole('heading');
   expect(titleElement).toBeInTheDocument();
   expect(titleElement).toHaveTextContent(/React Graph Tutorial/i);
-});
+});  
