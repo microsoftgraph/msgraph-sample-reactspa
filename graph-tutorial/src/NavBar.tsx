@@ -39,11 +39,11 @@ export default function NavBar() {
           <Navbar.Collapse>
             <Nav className="me-auto" navbar>
               <NavItem>
-                <RouterNavLink to="/" className="nav-link" exact>Home</RouterNavLink>
+                <RouterNavLink to="/" className="nav-link">Home</RouterNavLink>
               </NavItem>
               <AuthenticatedTemplate>
                 <NavItem>
-                  <RouterNavLink to="/calendar" className="nav-link" exact>Calendar</RouterNavLink>
+                  <RouterNavLink to="/calendar" className="nav-link">Calendar</RouterNavLink>
                 </NavItem>
               </AuthenticatedTemplate>
             </Nav>

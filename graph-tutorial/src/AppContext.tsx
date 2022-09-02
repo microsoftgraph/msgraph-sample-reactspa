@@ -1,3 +1,9 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+import { getUser } from './GraphService';
+import config from './Config';
+
 import React, {
     useContext,
     createContext,
@@ -62,6 +68,7 @@ export interface AppUser {
   // </AppContextSnippet>
 
   function useProvideAppContext() {
+    const msal = useMsal();
     const [user, setUser] = useState<AppUser | undefined>(undefined);
     const [error, setError] = useState<AppError | undefined>(undefined);
   
@@ -73,15 +80,70 @@ export interface AppUser {
       setError(undefined);
     }
   
-    const authProvider = undefined;
-  
-    const signIn = async () => {
-      // TODO
+    // <AuthProviderSnippet>
+  // Used by the Graph SDK to authenticate API calls
+  const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
+    msal.instance as PublicClientApplication,
+    {
+      account: msal.instance.getActiveAccount()!,
+      scopes: config.scopes,
+      interactionType: InteractionType.Popup
+    }
+  );
+  // </AuthProviderSnippet>
+
+    // <UseEffectSnippet>
+  useEffect(() => {
+    const checkUser = async() => {
+      if (!user) {
+        try {
+          // Check if user is already signed in
+          const account = msal.instance.getActiveAccount();
+          if (account) {
+            // Get the user from Microsoft Graph
+            const user = await getUser(authProvider);
+
+            setUser({
+              displayName: user.displayName || '',
+              email: user.mail || user.userPrincipalName || '',
+              timeFormat: user.mailboxSettings?.timeFormat || 'h:mm a',
+              timeZone: user.mailboxSettings?.timeZone || 'UTC'
+            });
+          }
+        } catch (err: any) {
+          displayError(err.message);
+        }
+      }
     };
-  
-    const signOut = async () => {
-      // TODO
-    };
+    checkUser();
+  });
+  // </UseEffectSnippet>
+
+    // <SignInSnippet>
+  const signIn = async () => {
+    await msal.instance.loginPopup({
+      scopes: config.scopes,
+      prompt: 'select_account'
+    });
+
+    // Get the user from Microsoft Graph
+    const user = await getUser(authProvider);
+
+    setUser({
+      displayName: user.displayName || '',
+      email: user.mail || user.userPrincipalName || '',
+      timeFormat: user.mailboxSettings?.timeFormat || '',
+      timeZone: user.mailboxSettings?.timeZone || 'UTC'
+    });
+  };
+  // </SignInSnippet>
+    
+    // <SignOutSnippet>
+  const signOut = async () => {
+    await msal.instance.logoutPopup();
+    setUser(undefined);
+  };
+  // </SignOutSnippet>
   
     return {
       user,

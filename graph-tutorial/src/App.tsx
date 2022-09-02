@@ -1,4 +1,7 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { MsalProvider } from '@azure/msal-react'
 import { IPublicClientApplication } from '@azure/msal-browser';
@@ -8,20 +11,29 @@ import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
 import Welcome from './Welcome';
 import 'bootstrap/dist/css/bootstrap.css';
-
-export default function App() {
+/*
+// <AppPropsSnippet>
+type AppProps= {
+  pca: IPublicClientApplication
+};
+// </AppPropsSnippet>
+*/
+export default function App() { //{ pca }: AppProps
   return(
     <ProvideAppContext>
       <Router>
         <NavBar />
         <Container>
           <ErrorMessage />
-          <Route exact path="/"
-            render={(props) =>
-              <Welcome {...props} />
-            } />
+          <Routes>
+          <Route path="/"
+            element={
+                  <Welcome />
+            } />        
+          </Routes>
         </Container>
       </Router>
     </ProvideAppContext>
   );
 }
+

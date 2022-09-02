@@ -6,11 +6,11 @@ import {
     Button,
     Container
   } from 'react-bootstrap';
-  import { RouteComponentProps } from 'react-router-dom';
+  //import { RouteComponentProps } from 'react-router-dom';
   import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
   import { useAppContext } from './AppContext';
   
-  export default function Welcome(props: RouteComponentProps) {
+  export default function Welcome() {
     const app = useAppContext();
   
     return (
