@@ -5,7 +5,6 @@ products:
 - ms-graph
 - microsoft-graph-calendar-api
 - office-exchange-online
-- yarn
 languages:
 - typescript
 - nodejs
