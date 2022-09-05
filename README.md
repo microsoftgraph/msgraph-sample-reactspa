@@ -43,17 +43,6 @@ yarn add react-router-dom@5.2.0 bootstrap@5.0.1 react-bootstrap@2.0.0-beta.4 win
 yarn add date-fns@2.22.1 date-fns-tz@1.1.4 @azure/msal-react@1.0.1 @azure/msal-browser@2.16.1 @microsoft/microsoft-graph-client@3.0.0
 yarn add -D @types/react-router-dom@5.1.8 @types/microsoft-graph
 ```
-## Prerequisites
-
-To run the completed project in this folder, you need the following:
-
-- [Node.js](https://nodejs.org) installed on your development machine. If you do not have Node.js, visit the previous link for download options. (**Note:** This tutorial was written with Node version 12.16.1. The steps in this guide may work with other versions, but that has not been tested.)
-- Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account.
-
-If you don't have a Microsoft account, there are a couple of options to get a free account:
-
-- You can [sign up for a new personal Microsoft account](https://signup.live.com/signup?wa=wsignin1.0&rpsnv=12&ct=1454618383&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https://mail.live.com/default.aspx&id=64855&cbcxt=mai&bk=1454618383&uiflavor=web&uaid=b213a65b4fdc484382b6622b3ecaa547&mkt=E-US&lc=1033&lic=1).
-- You can [sign up for the Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program) to get a free Microsoft 365 subscription.
 
 ## Register a web application with the Azure Active Directory admin center
 
