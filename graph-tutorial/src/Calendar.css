@@ -1,0 +1,26 @@
+.calendar-view-date-cell {
+    width: 150px;
+  }
+  
+  .calendar-view-date {
+    width: 40px;
+    font-size: 36px;
+    line-height: 36px;
+    margin-right: 10px;
+  }
+  
+  .calendar-view-month {
+    font-size: 0.75em;
+  }
+  
+  .calendar-view-timespan {
+    width: 200px;
+  }
+  
+  .calendar-view-subject {
+    font-size: 1.25em;
+  }
+  
+  .calendar-view-organizer {
+    font-size: .75em;
+  }
