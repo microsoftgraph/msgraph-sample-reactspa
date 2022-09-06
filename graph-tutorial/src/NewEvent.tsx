@@ -3,12 +3,14 @@
 
 // <NewEventSnippet>
 import { useEffect, useState } from 'react';
-//import { NavLink as RouterNavLink, Redirect, RouteComponentProps } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+//import { Redirect } from 'react-router-dom';
 import { NavLink as RouterNavLink} from 'react-router-dom';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Attendee, Event } from 'microsoft-graph';
 import { createEvent } from './GraphService';
 import { useAppContext } from './AppContext';
+
 
 export default function NewEvent() {
   const app = useAppContext();
@@ -72,9 +74,8 @@ export default function NewEvent() {
   };
 
   if (redirect) {
-    return ("/calendar")
+    return <Navigate to="/calendar" />
   }
-
   return(
     <Form>
       <Form.Group>
