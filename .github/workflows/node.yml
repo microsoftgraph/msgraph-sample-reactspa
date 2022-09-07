@@ -7,7 +7,7 @@ on:
     paths:
       - demo/graph-tutorial/**
   pull_request:
-    branches: 
+    branches:
       - main
       - live
   workflow_dispatch:
@@ -16,8 +16,8 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: demo/graph-tutorial
-        
+        working-directory: graph-tutorial
+
     name: Build and test
     runs-on: ubuntu-latest
 
