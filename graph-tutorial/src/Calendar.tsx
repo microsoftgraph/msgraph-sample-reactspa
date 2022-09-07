@@ -27,7 +27,8 @@ export default function Calendar() {
           const events = await getUserWeekCalendar(app.authProvider!, ianaTimeZones[0].valueOf());
           setEvents(events);
         } catch (err) {
-          app.displayError!(err.message);
+          const error = err as Error;
+          app.displayError!(error.message);
         }
       }
     };
