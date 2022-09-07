@@ -3,12 +3,10 @@
 
 // <NewEventSnippet>
 import { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
-//import { Redirect } from 'react-router-dom';
-//import { RouteComponentProps } from 'react-router-dom';
-import { NavLink as RouterNavLink} from 'react-router-dom';
+import { NavLink as RouterNavLink, Navigate } from 'react-router-dom';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Attendee, Event } from 'microsoft-graph';
+
 import { createEvent } from './GraphService';
 import { useAppContext } from './AppContext';
 
@@ -28,7 +26,7 @@ export default function NewEvent() {
     setFormDisabled(
       subject.length === 0 ||
       start.length === 0 ||
-      end.length ===0);
+      end.length === 0);
   }, [subject, start, end]);
 
   const doCreate = async () => {
@@ -77,7 +75,7 @@ export default function NewEvent() {
   if (redirect) {
     return <Navigate to="/calendar" />
   }
-  return(
+  return (
     <Form>
       <Form.Group>
         <Form.Label>Subject</Form.Label>
@@ -86,7 +84,7 @@ export default function NewEvent() {
           id="subject"
           className="mb-2"
           value={subject}
-          onChange={(ev) => setSubject(ev.target.value) } />
+          onChange={(ev) => setSubject(ev.target.value)} />
       </Form.Group>
       <Form.Group>
         <Form.Label>Attendees</Form.Label>
@@ -94,9 +92,9 @@ export default function NewEvent() {
           name="attendees"
           id="attendees"
           className="mb-2"
-          placeholder="Enter a list of email addresses, seperated by a semi-colon"
+          placeholder="Enter a list of email addresses, separated by a semi-colon"
           value={attendees}
-          onChange={(ev) => setAttendees(ev.target.value) } />
+          onChange={(ev) => setAttendees(ev.target.value)} />
       </Form.Group>
       <Row className="mb-2">
         <Col>
@@ -106,7 +104,7 @@ export default function NewEvent() {
               name="start"
               id="start"
               value={start}
-              onChange={(ev) => setStart(ev.target.value) } />
+              onChange={(ev) => setStart(ev.target.value)} />
           </Form.Group>
         </Col>
         <Col>
@@ -116,7 +114,7 @@ export default function NewEvent() {
               name="end"
               id="end"
               value={end}
-              onChange={(ev) => setEnd(ev.target.value) } />
+              onChange={(ev) => setEnd(ev.target.value)} />
           </Form.Group>
         </Col>
       </Row>
@@ -128,7 +126,7 @@ export default function NewEvent() {
           className="mb-3"
           style={{ height: '10em' }}
           value={body}
-          onChange={(ev) => setBody(ev.target.value) } />
+          onChange={(ev) => setBody(ev.target.value)} />
       </Form.Group>
       <Button color="primary"
         className="me-2"
@@ -136,7 +134,7 @@ export default function NewEvent() {
         onClick={() => doCreate()}>Create</Button>
       <RouterNavLink to="/calendar"
         className="btn btn-secondary"
-        >Cancel</RouterNavLink>
+      >Cancel</RouterNavLink>
     </Form>
   );
 }

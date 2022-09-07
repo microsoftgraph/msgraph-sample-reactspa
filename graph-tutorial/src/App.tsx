@@ -15,37 +15,36 @@ import Calendar from './Calendar';
 import NewEvent from './NewEvent';
 
 // <AppPropsSnippet>
-type AppProps= {
+type AppProps = {
   pca: IPublicClientApplication
 };
 // </AppPropsSnippet>
 
 export default function App({ pca }: AppProps): JSX.Element { //{ pca }: AppProps
-  return(
-    <MsalProvider instance={ pca }>
-    <ProvideAppContext>
-      <Router>
-        <NavBar />
-        <Container>
-          <ErrorMessage />
-          <Routes>
-          <Route path="/"
-            element={
+  return (
+    <MsalProvider instance={pca}>
+      <ProvideAppContext>
+        <Router>
+          <NavBar />
+          <Container>
+            <ErrorMessage />
+            <Routes>
+              <Route path="/"
+                element={
                   <Welcome />
-            } />  
-            <Route path="/calendar"
-              element={
-                  <Calendar/>
-              } />
-            <Route path="/newevent"
-              element={
-                  <NewEvent/> 
-              } />      
-          </Routes>
-        </Container>
-      </Router>
-    </ProvideAppContext>
+                } />
+              <Route path="/calendar"
+                element={
+                  <Calendar />
+                } />
+              <Route path="/newevent"
+                element={
+                  <NewEvent />
+                } />
+            </Routes>
+          </Container>
+        </Router>
+      </ProvideAppContext>
     </MsalProvider>
   );
 }
-
