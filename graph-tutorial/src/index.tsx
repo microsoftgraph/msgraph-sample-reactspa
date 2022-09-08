@@ -5,7 +5,8 @@ import {
   PublicClientApplication,
   EventType,
   EventMessage,
-  AuthenticationResult } from '@azure/msal-browser';
+  AuthenticationResult
+} from '@azure/msal-browser';
 
 import config from './Config';
 import './index.css';
@@ -46,7 +47,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App pca = { msalInstance }/>
+    <App pca={msalInstance} />
   </React.StrictMode>
 );
 

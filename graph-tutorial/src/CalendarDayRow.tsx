@@ -14,7 +14,7 @@ type CalendarDayRowProps = {
 };
 
 interface FormatMap {
-  [key: string] : string;
+  [key: string]: string;
 }
 
 // date-fns format strings are slightly
@@ -60,10 +60,10 @@ export default function CalendarDayRow(props: CalendarDayRowProps) {
   return (
     <React.Fragment>
       {props.events.map(
-        function(event: Event, index: Number) {
+        function (event: Event, index: Number) {
           return (
             <tr className={rowClass} key={event.id}>
-              { index === 0 && <DateCell {...props}/> }
+              {index === 0 && <DateCell {...props} />}
               <td className="calendar-view-timespan">
                 <div>{formatDateTime(event.start?.dateTime, props.timeFormat)} - {formatDateTime(event.end?.dateTime, props.timeFormat)}</div>
               </td>

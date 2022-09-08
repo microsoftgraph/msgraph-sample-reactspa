@@ -12,7 +12,7 @@ export default function ErrorMessage() {
     return (
       <Alert variant="danger" dismissible onClose={() => app.clearError!()}>
         <p className="mb-3">{app.error.message}</p>
-        { app.error.debug ?
+        {app.error.debug ?
           <pre className="alert-pre border bg-light p-2"><code>{app.error.debug}</code></pre>
           : null
         }
