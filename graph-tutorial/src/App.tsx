@@ -10,9 +10,9 @@ import ProvideAppContext from './AppContext';
 import ErrorMessage from './ErrorMessage';
 import NavBar from './NavBar';
 import Welcome from './Welcome';
-import 'bootstrap/dist/css/bootstrap.css';
 import Calendar from './Calendar';
 import NewEvent from './NewEvent';
+import 'bootstrap/dist/css/bootstrap.css';
 
 // <AppPropsSnippet>
 type AppProps = {
@@ -20,7 +20,7 @@ type AppProps = {
 };
 // </AppPropsSnippet>
 
-export default function App({ pca }: AppProps): JSX.Element { //{ pca }: AppProps
+export default function App({ pca }: AppProps): JSX.Element {
   return (
     <MsalProvider instance={pca}>
       <ProvideAppContext>

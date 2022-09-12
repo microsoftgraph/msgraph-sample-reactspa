@@ -57,6 +57,9 @@
   "jest": {
     "transformIgnorePatterns": [
       "/node_modules/(?!date-fns)"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/src/__mocks__/mockCss.js"
+    }
   }
 }
