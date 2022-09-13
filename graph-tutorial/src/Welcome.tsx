@@ -32,4 +32,4 @@ export default function Welcome() {
     </div>
   );
 }
-  // </WelcomeSnippet>
+// </WelcomeSnippet>

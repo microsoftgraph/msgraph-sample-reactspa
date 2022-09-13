@@ -63,6 +63,4 @@ typings/
 # VS Code settings
 .vscode/
 
-Config.js
 Config.ts
-ReactQuickStart.zip

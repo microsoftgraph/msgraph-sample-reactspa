@@ -28,7 +28,7 @@ describe('Basic render tests', () => {
 
   test('renders welcome page', async () => {
     await act(async () => { // eslint-disable-line
-      render(<App pca = {pca} />);
+      render(<App pca={pca} />);
     });
 
     const titleElement = screen.getByRole('heading');
