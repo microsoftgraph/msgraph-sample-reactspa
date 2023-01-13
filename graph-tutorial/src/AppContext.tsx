@@ -116,7 +116,7 @@ function useProvideAppContext() {
       }
     };
     checkUser();
-  });
+  }, [msal?.instance]);
   // </UseEffectSnippet>
 
   // <SignInSnippet>
