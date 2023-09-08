@@ -5,7 +5,7 @@
   "dependencies": {
     "@azure/msal-browser": "^2.38.2",
     "@azure/msal-react": "^1.4.6",
-    "@microsoft/mgt-element": "^2.6.1",
+    "@microsoft/mgt-element": "^3.1.2",
     "@microsoft/microsoft-graph-client": "^3.0.2",
     "bootstrap": "^5.2.1",
     "date-fns": "^2.29.2",
