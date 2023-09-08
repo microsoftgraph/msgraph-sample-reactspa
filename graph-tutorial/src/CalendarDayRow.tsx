@@ -3,9 +3,8 @@
 
 // <CalendarDayRowSnippet>
 import React from 'react';
-import { Event } from 'microsoft-graph';
-import { format } from 'date-fns';
-import { parseISO } from 'date-fns/esm';
+import { Event } from '@microsoft/microsoft-graph-types';
+import { format, parseISO } from 'date-fns';
 
 type CalendarDayRowProps = {
   date: Date,

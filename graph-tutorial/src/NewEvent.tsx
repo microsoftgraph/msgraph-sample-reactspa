@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink as RouterNavLink, Navigate } from 'react-router-dom';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { Attendee, Event } from 'microsoft-graph';
+import { Attendee, Event } from '@microsoft/microsoft-graph-types';
 
 import { createEvent } from './GraphService';
 import { useAppContext } from './AppContext';
