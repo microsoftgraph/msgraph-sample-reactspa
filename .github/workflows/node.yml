@@ -21,6 +21,10 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
     steps:
     - uses: actions/checkout@v4
     - name: Copy settings file
@@ -29,7 +33,7 @@ jobs:
     - name: Verify npm all runs and build output matches
       uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        node-version: ${{ matrix.node-version }}
     - run: yarn install
     - run: yarn run build
     - run: yarn run test
