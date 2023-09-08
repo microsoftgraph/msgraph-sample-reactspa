@@ -5,10 +5,10 @@
   "dependencies": {
     "@azure/msal-browser": "^2.38.2",
     "@azure/msal-react": "^1.5.11",
-    "@microsoft/mgt-element": "^2.11.2",
+    "@microsoft/mgt-element": "^3.1.2",
     "@microsoft/microsoft-graph-client": "^3.0.6",
     "bootstrap": "^5.3.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^2.29.2",
     "date-fns-tz": "^2.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -48,11 +48,10 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.4",
     "@types/microsoft-graph": "^2.38.0",
-    "@types/node": "^16.18.48",
+    "@types/node": "^20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@types/react-router-dom": "^5.3.3",
-    "typescript": "^4.9.5"
+    "@types/react-router-dom": "^5.3.3"
   },
   "jest": {
     "transformIgnorePatterns": [
