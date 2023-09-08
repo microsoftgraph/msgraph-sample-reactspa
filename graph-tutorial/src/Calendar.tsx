@@ -5,10 +5,9 @@ import { useEffect, useState } from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 import { findIana } from 'windows-iana';
-import { Event } from 'microsoft-graph';
+import { Event } from '@microsoft/microsoft-graph-types';
 import { AuthenticatedTemplate } from '@azure/msal-react';
-import { add, format, getDay, parseISO } from 'date-fns';
-import { endOfWeek, startOfWeek } from 'date-fns/esm';
+import { add, endOfWeek, format, getDay, parseISO, startOfWeek } from 'date-fns';
 
 import { getUserWeekCalendar } from './GraphService';
 import { useAppContext } from './AppContext';
