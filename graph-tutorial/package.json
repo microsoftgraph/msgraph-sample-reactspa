@@ -50,7 +50,7 @@
     "@types/jest": "^29.5.4",
     "@types/microsoft-graph": "^2.38.0",
     "@types/node": "^20.5.9",
-    "@types/react": "^18.0.18",
+    "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3"
   },
