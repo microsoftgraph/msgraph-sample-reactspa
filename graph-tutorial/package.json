@@ -49,7 +49,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.4",
     "@types/microsoft-graph": "^2.38.0",
-    "@types/node": "^16.11.57",
+    "@types/node": "^20.5.9",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.0",
     "@types/react-router-dom": "^5.3.3"
