@@ -29,7 +29,7 @@ You should also have either a personal Microsoft account with a mailbox on Outlo
 
 1. Select **Azure Active Directory** in the left-hand navigation, then select **App registrations** under **Manage**.
 
-    > **Note:** Azure AD B2C users may only see **App registrations (legacy)**. In this case, please go directly to https://aka.ms/appregistrations.
+    > **Note:** Azure AD B2C users may only see **App registrations (legacy)**. In this case, please go directly to [https://aka.ms/appregistrations](https://aka.ms/appregistrations).
 
 1. Select **New registration**. On the **Register an application** page, set the values as follows.
 
@@ -59,6 +59,7 @@ You should also have either a personal Microsoft account with a mailbox on Outlo
     ```
 
 1. Open a browser and browse to `http://localhost:3000`.
+
 ## Code of conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
