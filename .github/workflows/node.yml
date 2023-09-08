@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Copy settings file
       run: |
         cp ./src/Config.example.ts ./src/Config.ts
