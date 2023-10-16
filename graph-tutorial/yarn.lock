@@ -1650,10 +1650,10 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@microsoft/mgt-element@^3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@microsoft/mgt-element/-/mgt-element-3.1.2.tgz#ac2b88efca0b436a9718fb48c92c7277e5ecf413"
-  integrity sha512-MGGJvvmTcSVUgbATDPHYFvfOv+mnik9C3g8VTa4zBYd2TfIRvgGgN5SZFuFUpXzDlpqwZcokg1WcD4pFG6j9pw==
+"@microsoft/mgt-element@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@microsoft/mgt-element/-/mgt-element-3.1.3.tgz#269d0c028089b0c3e71ce5bcb8c90ee0c1876d56"
+  integrity sha512-Wvt/PO83MJrcV8Z/Tx0pnCeDB3yulHr5xCrxN47v1KLr7vXj8BFqK73g7PMSOJ0ptDvYB1GEoyYVPACrPPZR0Q==
   dependencies:
     "@microsoft/microsoft-graph-client" "3.0.2"
     idb "6.0.0"
