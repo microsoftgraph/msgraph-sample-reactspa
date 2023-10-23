@@ -31,7 +31,7 @@ jobs:
       run: |
         cp ./src/Config.example.ts ./src/Config.ts
     - name: Verify npm all runs and build output matches
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install
