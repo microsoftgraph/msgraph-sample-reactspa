@@ -34,22 +34,22 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@azure/msal-browser@^2.38.3":
-  version "2.38.3"
-  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-2.38.3.tgz#2f131fa9b7a8a9546fc8d34e5d99ce4c18b04147"
-  integrity sha512-2WuLFnWWPR1IdvhhysT18cBbkXx1z0YIchVss5AwVA95g7CU5CpT3d+5BcgVGNXDXbUU7/5p0xYHV99V5z8C/A==
+"@azure/msal-browser@^3.7.1":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-3.7.1.tgz#66e3eb39cd144e54ffbbe8351a27d258799a2fd6"
+  integrity sha512-EZnk81zn1/5/jv/VVN2Tp+dUVchHmwbbt7pn654Eqa+ua7wtEIg1btuW/mowB13BV2nGYcvniY9Mf+3Sbe0cCg==
   dependencies:
-    "@azure/msal-common" "13.3.1"
+    "@azure/msal-common" "14.6.1"
 
-"@azure/msal-common@13.3.1":
-  version "13.3.1"
-  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-13.3.1.tgz#012465bf940d12375dc47387b754ccf9d6b92180"
-  integrity sha512-Lrk1ozoAtaP/cp53May3v6HtcFSVxdFrg2Pa/1xu5oIvsIwhxW6zSPibKefCOVgd5osgykMi5jjcZHv8XkzZEQ==
+"@azure/msal-common@14.6.1":
+  version "14.6.1"
+  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-14.6.1.tgz#1c76084ae5b0870fe0b15b9469c9bce0036acc15"
+  integrity sha512-yL97p2La0WrgU3MdXThOLOpdmBMvH8J69vwQ/skOqORYwOW/UYPdp9nZpvvfBO+zFZB5M3JkqA2NKtn4GfVBHw==
 
-"@azure/msal-react@^1.5.12":
-  version "1.5.12"
-  resolved "https://registry.yarnpkg.com/@azure/msal-react/-/msal-react-1.5.12.tgz#d0a74161977bca6ffc30bb9177f7f9f5314aa5b8"
-  integrity sha512-waz8wFWVSLn3g8033uK6byGF29w3Lpg5gzuTKEJyBaAgoed3p09nuMYZRLgqFdXeAazpw/YthLdKRNN9DlMrQA==
+"@azure/msal-react@^2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@azure/msal-react/-/msal-react-2.0.10.tgz#db86a1c84eab7e8a1ed933191d78751ba017b7d6"
+  integrity sha512-NGE2EqNVx7nJQ7ssyDmzZJDVTjcNB4IpUonwoyX4+vivjRkJTmqAfGVmpL66he7md1dfqWwGSudBic6XPypV2g==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.0", "@babel/code-frame@^7.23.5", "@babel/code-frame@^7.8.3":
   version "7.23.5"
