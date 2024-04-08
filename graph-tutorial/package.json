@@ -53,7 +53,7 @@
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
     "@types/react-router-dom": "^5.3.3",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "jest": {
     "transformIgnorePatterns": [],
