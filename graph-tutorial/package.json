@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@azure/msal-browser": "^3.13.0",
-    "@azure/msal-react": "^2.0.14",
+    "@azure/msal-react": "^2.0.15",
     "@microsoft/mgt-element": "^3.1.3",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "bootstrap": "^5.3.3",
