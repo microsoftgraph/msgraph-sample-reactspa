@@ -81,7 +81,7 @@ configuration:
             It looks like you are asking a question about using Microsoft Graph or one of the Microsoft Graph SDKs that is not directly related to this sample. Unfortunately we are not set up to answer general questions in this repository, so this issue will be closed.
 
 
-            Please try asking your question on [Stack Overflow](https://stackoverflow.com/questions/tagged/microsoft-graph-api), tagging your question with `microsoft-graph-api`.
+            Please try asking your question on [Microsoft Q&A](https://learn.microsoft.com/answers/tags/161/ms-graph), tagging your question with `Microsoft Graph`.
       - closeIssue
     - description: 
       frequencies:
