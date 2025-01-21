@@ -5,7 +5,7 @@
 import { Client, GraphRequestOptions, PageCollection, PageIterator } from '@microsoft/microsoft-graph-client';
 import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
 import { endOfWeek, startOfWeek } from 'date-fns';
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { toZonedTime, fromZonedTime } from 'date-fns-tz';
 import { User, Event } from '@microsoft/microsoft-graph-types';
 
 let graphClient: Client | undefined = undefined;
@@ -41,8 +41,8 @@ export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthe
   // Generate startDateTime and endDateTime query params
   // to display a 7-day window
   const now = new Date();
-  const startDateTime = zonedTimeToUtc(startOfWeek(now), timeZone).toISOString();
-  const endDateTime = zonedTimeToUtc(endOfWeek(now), timeZone).toISOString();
+  const startDateTime = fromZonedTime(startOfWeek(now), timeZone).toISOString();
+  const endDateTime = fromZonedTime(endOfWeek(now), timeZone).toISOString();
 
   // GET /me/calendarview?startDateTime=''&endDateTime=''
   // &$select=subject,organizer,start,end
